@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Zipline: The Quote Machine</title>
+	<link rel='stylesheet' href='css/style.css'/>
+	<link href='https://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Hind' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="scripts/app.js"></script>
+</head>
+
+<body>
+	<div id="page-wrap">
+		<h1>The Advice Machine</h1>
+		<div id="container">
+			<p id="quote"></p>
+			<div id="mainButtons">
+				<a class="twitter-share-button" target="_blank"><button id="twi">tweet it!</button></a>
+				<button id="getNewQuote" onclick="getAdvice();" >get another one</button>
+			</div>
+			<div id="linkAPI">
+				<p>This service uses <a href="http://api.adviceslip.com/">Advice Slip API</a></p>
+			</div>
+		</div>
+		
+		<div id="slideshowSettings">
+			<p>Do you want to get more wisdom automatically? <span id="settings">Press here</span></p>
+			<div id="slideshowControllers">
+				<div id="slider">
+					<p>Set delay between pieces of advice and press 'start':</p>
+					<input autocomplete="off" id="delayBetweenSlides" type=range min=5 value=10 max=30 step=1 onchange="updateRangeInputValue(this.value);" />
+					<p id="rangeValue">10 seconds</p>
+				</div>
+				<div id="slideshowButtons">
+					<button id="slideshowStart" onclick="slideshowStart();">start</button>
+					<button id="slideshowStop" disabled onclick="slideshowStop();">stop</button>
+				</div>
+			</div>	
+		</div>
+		
+	</div>
+</body>
+</html>
