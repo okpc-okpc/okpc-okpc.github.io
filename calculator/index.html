@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Zipline #3: Calculator</title>
+	<link rel='stylesheet' href='style.css'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="app.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700' rel='stylesheet' type='text/css'><body>
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa:400,300,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>	
+	<div id="wrapper">
+		<h1>Calculator</h1>
+		<div id="container">
+			
+			<div id="display-section">
+				<input id="display" type="text" inputmode="numeric" autocomplete="off" disabled/>
+			</div>
+			
+			<div id="keypad-section">
+				<button id="reset" name="reset" value="reset">AC</button>
+				<button id="clear" name="clear" value="clear">C</button>
+				<button id="percent" name="percent" value="percent">%</button>
+				<button class="operation" name="division"value="/">/</button>
+				<br />
+				<button class="digit" name="7" value="7">7</button>
+				<button class="digit" name="8" value="8">8</button>
+				<button class="digit" name="9" value="9">9</button>
+				<button class="operation" name="multiply" value="*">x</button>
+				<br />
+				<button class="digit" name="4" value="4">4</button>
+				<button class="digit" name="5" value="5">5</button>
+				<button class="digit" name="6" value="6">6</button>
+				<button class="operation" name="sub" value="-">-</button>
+				<br />
+				<button class="digit" name="1" value="1">1</button>
+				<button class="digit" name="2" value="2">2</button>
+				<button class="digit" name="3" value="3">3</button>
+				<button class="operation" name="add" value="+">+</button>
+				<br />
+				<button class="digit" name="0" value="0">0</button>
+				<button id="period" name="period" value=".">.</button>
+				<button id="result" name="result" value="result">=</button>
+				<br />
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>
