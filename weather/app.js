@@ -41,6 +41,7 @@ var getCoordinates = (function() {
 		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
 		console.log(position);
 		currentPlace = position.coords;
+		reverseGeo();
 		callback();
 	}
 
@@ -63,13 +64,37 @@ var getCoordinates = (function() {
 
 }());
 
+/*function getCoordinates() {
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+function success(pos) {
+  currentPlace = pos.coords;
+
+  console.log('Your current position is:');
+  console.log('Latitude : ' + currentPlace.latitude);
+  console.log('Longitude: ' + currentPlace.longitude);
+  console.log('More or less ' + currentPlace.accuracy + ' meters.');
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+navigator.geolocation.getCurrentPosition(success, error, options)
+};
+*/
 
 
-/*function reverseGeo() {
+
+function reverseGeo() {
 	
 	var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
 	
 	console.log(geoRequestUrl);
+	
+	
 	
 	$.ajax({
 		url: geoRequestUrl,
@@ -86,7 +111,11 @@ var getCoordinates = (function() {
 			console.log("reverseGeo: " + status);
 		}
 	})
-};*/
+};
+
+
+
+
 
 function getWeather() {
 	
@@ -117,7 +146,7 @@ function showWeather() {
 	convert();
 	if (metrical) {
 		$("ul")
-			.html("<li>Location: " + currentPlace.latitude + "," + currentPlace.longitude
+			.html("<li>Location: " + geoRespond.results[0].components.city + ", " + geoRespond.results[0].components.country
 			+ "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0]
 			+ "; feels like " + responds.currently.apparentTemperature + wUnits.metrical[0]
 			+ "</li><li>Conditions: " + responds.currently.summary
@@ -172,14 +201,14 @@ $(document).ready(function() {
 	getCoordinates.location(function () {
 		console.log('finished, loading app.');
 		//reverseGeo();
-		
 		getWeather();
+		
 		$(document).ajaxComplete(function() {
-			showWeather();
-		});
-	
+			  showWeather()
+		});/**/
 	});
 	
+
 
 /*
 Reverse geocoging:
