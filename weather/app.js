@@ -1,6 +1,7 @@
 var currentPlace = {};
 var wRequestUrl = "";
 var responds = {};
+var geoRespond;
 var temperature = 0;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
 var metrical = true;
@@ -12,6 +13,23 @@ var wDirection = "";
 
 var getCoordinates = (function() {
 	
+	function showError(error) {
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+				throw "User denied the request for Geolocation.";
+				break;
+			case error.POSITION_UNAVAILABLE:
+				throw "Location information is unavailable.";
+				break;
+			case error.TIMEOUT:
+				throw "The request to get user location timed out.";
+				break;
+			case error.UNKNOWN_ERROR:
+				throw "An unknown error occurred.";
+				break;
+    }
+}
+	
 	var geoposition;
 	var options = {
 		maximumAge: 1000,
@@ -21,13 +39,14 @@ var getCoordinates = (function() {
 
 	function _onSuccess (callback, position) {
 		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
+		console.log(position);
 		currentPlace = position.coords;
 		callback();
 	}
 
 	function _onError (callback, error) {
-		console.log(error);
 		callback();
+		showError(error);
 	}
 
 	function _getLocation (callback) {
@@ -45,9 +64,34 @@ var getCoordinates = (function() {
 }());
 
 
+
+/*function reverseGeo() {
+	
+	var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
+	
+	console.log(geoRequestUrl);
+	
+	$.ajax({
+		url: geoRequestUrl,
+		type: "GET",
+		dataType: "jsonp",
+		success: function(geo) {
+			geoRespond = geo;
+			console.log(geoRespond);
+		},
+		error: function(xhr, status, errorThrown) {
+			console.log("reverseGeo: " + status);
+		},
+		complete: function(xhr, status) {
+			console.log("reverseGeo: " + status);
+		}
+	})
+};*/
+
 function getWeather() {
 	
 	wRequestUrl = "https://api.forecast.io/forecast/" + appId + "/" + currentPlace.latitude + "," + currentPlace.longitude;
+	console.log(wRequestUrl);
 	
 	$.ajax({
 		url: wRequestUrl,
@@ -55,25 +99,32 @@ function getWeather() {
 		dataType: "jsonp",
 		success: function(json) {
 			responds = json;
+			console.log("Inside getWeather: ");
 			console.log(responds);
 		},
 		error: function(xhr, status, errorThrown) {
-			console.log("something have got wrong...");
-			currentQuote = "Unfortunately I can't connect to the source:( Try later...";
-			
+			console.log("getWeather: " + status);
 		},
 		complete: function(xhr, status) {
-			console.log("done!");
+			console.log("getWeather: " + status);
 		}
 	})
 };
 
 function showWeather() {
+	console.log("Inside showWeather: ");
 	console.log(responds);
 	convert();
 	if (metrical) {
 		$("ul")
-			.html("<li>Location: " + currentPlace.latitude + "," + currentPlace.longitude + "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0] + "</li><li>Conditions: " + responds.currently.summary + "</li><li>Wind speed: " + responds.currently.windSpeed + wUnits.metrical[1] + " (" + wDirection + ")");
+			.html("<li>Location: " + currentPlace.latitude + "," + currentPlace.longitude
+			+ "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0]
+			+ "; feels like " + responds.currently.apparentTemperature + wUnits.metrical[0]
+			+ "</li><li>Conditions: " + responds.currently.summary
+			+ "</li><li>Cloudiness: " + responds.currently.cloudCover + "%"
+			+ "</li><li>Humidity: " + responds.currently.humidity + "%"
+			+ "</li><li>Wind speed: " + responds.currently.windSpeed + wUnits.metrical[1] + " (direction - " + wDirection + ")")
+			.after("<p><strong>Next 24 hours brief forecast: </strong>" + responds.hourly.summary + "</p>");
 	}
 };
 
@@ -81,6 +132,9 @@ function showWeather() {
 function convert() {
 	if (metrical) {
 		responds.currently.temperature = Math.round((responds.currently.temperature - 32) / 1.8);
+		responds.currently.apparentTemperature = Math.round((responds.currently.apparentTemperature - 32) / 1.8);
+		responds.currently.cloudCover *= 100;
+		responds.currently.humidity *= 100;
 		responds.currently.windSpeed = (responds.currently.windSpeed * 0.44704).toPrecision(2);
 	}
 	
@@ -117,20 +171,25 @@ function convert() {
 $(document).ready(function() {
 	getCoordinates.location(function () {
 		console.log('finished, loading app.');
+		//reverseGeo();
+		
 		getWeather();
-		$(document).ajaxComplete(function(event, xhr, settings) {
+		$(document).ajaxComplete(function() {
 			showWeather();
 		});
+	
 	});
 	
 
 /*
+Reverse geocoging:
+https://api.opencagedata.com/geocode/v1/json?q=47.959123999999996+37.7931349&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e
 
+1 - https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
+2- https://maps.googleapis.com/maps/api/geocode/json?latlng=47.958162099999996,37.7931768&key=AIzaSyAwdgGurtsTzr0te968d4nK2quXtTiBFSM
+3 - https://console.developers.google.com/home/dashboard?project=weather-app-1227
 
-https://developers.google.com/maps/documentation/geocoding/intro#reverse-example	https://maps.googleapis.com/maps/api/geocode/json?latlng=47.958162099999996,37.7931768&key=AIzaSyAwdgGurtsTzr0te968d4nK2quXtTiBFSM
-
-https://console.developers.google.com/home/dashboard?project=weather-app-1227
-
+Weather report:
 https://developer.forecast.io/docs/v2#forecast_call
 
 */
