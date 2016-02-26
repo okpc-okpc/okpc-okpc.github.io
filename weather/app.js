@@ -147,6 +147,7 @@ function showWeather() {
 	if (metrical) {
 		$("ul")
 			.html("<li>Location: " + geoRespond.results[0].components.city + ", " + geoRespond.results[0].components.country
+			+ " (LAT: " + currentPlace.latitude + " - LON: " + currentPlace.longitude + ")" 
 			+ "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0]
 			+ "; feels like " + responds.currently.apparentTemperature + wUnits.metrical[0]
 			+ "</li><li>Conditions: " + responds.currently.summary
@@ -213,7 +214,7 @@ $(document).ready(function() {
 
 
 /*
-Reverse geocoging:
+Reverse geocoding:
 https://api.opencagedata.com/geocode/v1/json?q=47.959123999999996+37.7931349&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e
 
 1 - https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
