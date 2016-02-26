@@ -39,7 +39,6 @@ var getCoordinates = (function() {
 
 	function _onSuccess (callback, position) {
 		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
-		console.log(position);
 		currentPlace = position.coords;
 		reverseGeo();
 		callback();
@@ -136,6 +135,7 @@ function getWeather() {
 		},
 		complete: function(xhr, status) {
 			console.log("getWeather: " + status);
+			showWeather()
 		}
 	})
 };
@@ -162,8 +162,8 @@ function convert() {
 	if (metrical) {
 		responds.currently.temperature = Math.round((responds.currently.temperature - 32) / 1.8);
 		responds.currently.apparentTemperature = Math.round((responds.currently.apparentTemperature - 32) / 1.8);
-		responds.currently.cloudCover *= 100;
-		responds.currently.humidity *= 100;
+		responds.currently.cloudCover = Math.round(responds.currently.cloudCover * 100);
+		responds.currently.humidity = Math.round(responds.currently.humidity *100);
 		responds.currently.windSpeed = (responds.currently.windSpeed * 0.44704).toPrecision(2);
 	}
 	
@@ -199,12 +199,14 @@ function convert() {
 
 $(document).ready(function() {
 	getCoordinates.location(function () {
-		console.log('finished, loading app.');
+		console.log('Main, after getCoordinates');
 		//reverseGeo();
-		getWeather();
+		getWeather()
+		
+		
 		
 		$(document).ajaxComplete(function() {
-			  showWeather()
+			//showWeather();
 		});/**/
 	});
 	
