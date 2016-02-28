@@ -151,7 +151,7 @@ function showWeather() {
 	convert();
 	if (metrical) {
 		$("ul")
-			.html("<li>Location: " + (geoRespond.results[0].components.city||geoRespond.results[0].components.town) + ", " + geoRespond.results[0].components.country
+			.html("<li>Location: " + (geoRespond.results[0].components.city||(geoRespond.results[0].components.town + ", " + geoRespond.results[0].components.state)) + ", " + geoRespond.results[0].components.country
 			+ " (LAT: " + currentPlace.latitude + " - LON: " + currentPlace.longitude + ")" 
 			+ "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0]
 			+ "; feels like " + responds.currently.apparentTemperature + wUnits.metrical[0]
