@@ -106,9 +106,12 @@ function reverseGeo() {
 		error: function(xhr, status, errorThrown) {
 			console.log("reverseGeo: " + status);
 		},
-		complete: function(xhr, status) {
+		complete: [function(xhr, status) {
 			console.log("reverseGeo: " + status);
-		}
+		},
+		function() {
+			getWeather();
+		}]
 	})
 };
 
@@ -125,17 +128,19 @@ function getWeather() {
 		url: wRequestUrl,
 		type: "GET",
 		dataType: "jsonp",
-		success: function(json) {
+		success: [function(json) {
 			responds = json;
 			console.log("Inside getWeather: ");
 			console.log(responds);
 		},
+		function() {showWeather()}
+		],
 		error: function(xhr, status, errorThrown) {
 			console.log("getWeather: " + status);
 		},
 		complete: function(xhr, status) {
 			console.log("getWeather: " + status);
-			showWeather()
+			//showWeather()
 		}
 	})
 };
@@ -170,7 +175,7 @@ function convert() {
 	
 	var direction = responds.currently.windBearing
 	switch (true) {
-		case (direction >= 326.25 && direction < 11.25):
+		case direction < 11.25:
 			wDirection = "N";
 			break;
 		case (direction >=11.25 && direction < 56.25):
@@ -194,6 +199,9 @@ function convert() {
 		case (direction >= 281.25 && direction < 326.25):
 			wDirection = "NW";
 			break;
+		case direction >= 326.25:
+			wDirection = "N";
+			break;
 	}
 };
 
@@ -202,13 +210,13 @@ $(document).ready(function() {
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');
 		//reverseGeo();
-		getWeather()
+		//getWeather()
 		
 		
 		
-		$(document).ajaxComplete(function() {
-			//showWeather();
-		});/**/
+		/*$(document).ajaxComplete(function() {
+			showWeather();
+		});*/
 	});
 	
 
