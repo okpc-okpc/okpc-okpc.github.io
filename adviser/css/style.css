@@ -13,7 +13,7 @@ body {
 #page-wrap {
      width: 500px;
      margin: 0 auto;
-	 
+
 }
 
 h1 {
@@ -26,7 +26,7 @@ h1 {
 }
 
 #container {
-	background: #F9F5F5;
+	background: #FDFDF9;
 	position: relative;
 	padding: 20px;
 	height: 330px;
@@ -54,6 +54,7 @@ h1 {
 	position: absolute;
 	top: 290px;
 	left: 65px;
+
 }
 
 #slideshowSettings {
@@ -77,8 +78,8 @@ h1 {
 	margin: 0;
 }
 
-footer {
-	
+button {
+	outline: none;
 }
 
 /*-----------control elements---------
@@ -115,20 +116,20 @@ footer {
 	#twi:hover {
 		background-color: #0F8CEC;
 	}
-	
+
 	#delayBetweenSlides:disabled {
 		opacity: 0.6;
 	}
-	
+
 	#rangeValue {
 		margin: 0px;
 	}
-	
+
 	#delayBetweenSlides {
 		margin: 0px;
 		padding: 0px;
 	}
-	
+
 /*---------range slider styles----------
 ----------------------------------------*/
 
@@ -137,15 +138,15 @@ footer {
 		-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
 		width: 100%; /* Specific width is required for Firefox. */
 	}
-	
+
 	input[type=range]::-webkit-slider-thumb {
 		-webkit-appearance: none;
 	}
-	
+
 	input[type=range]:focus {
 		outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
 	}
-	
+
 	input[type=range]::-ms-track {
 		width: 100%;
 		cursor: pointer;
@@ -168,7 +169,7 @@ footer {
 		-webkit-appearance: none;
 		margin-top: -1px;
 	}
-	
+
 	/* All the same stuff for Firefox */
 	input[type=range]::-moz-range-thumb {
 		height: 18px;
@@ -179,7 +180,7 @@ footer {
 		box-shadow: 1px 1px 1px #000;
 		border: 1px solid #02081e;
 	}
-	
+
 	/* All the same stuff for IE */
 	input[type=range]::-ms-thumb {
 		height: 18px;
@@ -206,7 +207,7 @@ footer {
 	input[type=range]:focus::-webkit-slider-runnable-track {
 		background: #5A96C9;
 	}
-	
+
 	input[type=range]::-moz-range-track {
 		width: 100%;
 		height: 18px;
@@ -216,7 +217,7 @@ footer {
 		border-radius: 2px;
 		border: 1px solid #010101;
 	}
-	
+
 	input[type=range]::-ms-track {
 		width: 100%;
 		height: 18px;
@@ -247,33 +248,33 @@ footer {
 
 
 @media (max-width: 750px) {
-	
+
 	body {
 		font-size: 14px;
 	}
-	
+
 	#page-wrap {
      width: 400px;
      margin: 0 auto;
 	}
-	
+
 	h1 {
 		font-size: 2.5em;
 	}
-	
+
 	#container {
 		position: relative;
 		height: 250px;
 		width: 90%;
 		font-size: 1.6em;
 	}
-	
+
 	#mainButtons {
 		position: absolute;
 		top: 230px;
 		left: 55px;
 	}
-	
+
 	#slideshowSettings {
 		position: relative;
 		width: 90%;
@@ -283,7 +284,7 @@ footer {
 		font-size:16px;
 		padding:5px 30px;
 	}
-	
+
 	#linkAPI>* {
 		font-size: 0.4em;
 	}

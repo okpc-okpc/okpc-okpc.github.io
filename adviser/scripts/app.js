@@ -2,12 +2,12 @@ var currentQuote;
 var count;
 var show;
 var delay = 10000; 						//delay between slides (in miliseconds)
-var state = false; 
+var state = false;
 
 
 /*------variables for visibility check--------
 ----------------------------------------------*/
-var hidden, visibilityChange; 
+var hidden, visibilityChange;
 if (typeof document.hidden !== "undefined") {
 	hidden = "hidden";
 	visibilityChange = "visibilitychange";
@@ -44,7 +44,7 @@ function updateRangeInputValue(val) {
 -------------------------------------------*/
 function getAdvice() {
 	$.ajax({
-		url: "https://crossorigin.me/http://api.adviceslip.com/advice",
+		url: "http://cors.io/?u=http://api.adviceslip.com/advice",
 		type: "GET",
 		dataType: "json",
 		success: function(json) {
@@ -91,23 +91,23 @@ function slideshowStop() {						//onclick <button#slideshowStop>
 }
 
 function sendMeToTwitter() {
-	
+
 }
 
 /*-------------MAIN FUNCTION------------------
 ----------------------------------------------*/
 $(document).ready(function() {
 	getAdvice();								//get and post initial advice
-	
+
 	$("#twi").click(function() {				//twit current advice
 		$('.twitter-share-button').attr(
 			"href",
 			"https://twitter.com/intent/tweet?text=" + currentQuote + " - by The Advice Machine");
 	});
-	
-												// Handle page visibility change   
+
+												// Handle page visibility change
   document.addEventListener(visibilityChange, handleVisibilityChange, false);
-  
+
   $("#settings").click(function(){				//toggle slideshow visibility settings block
 	$("#slideshowControllers").toggle(200);
   })
