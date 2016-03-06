@@ -3,16 +3,62 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel='stylesheet' href='style.css'/>
+	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,200' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='css/style.css'/>
+	<link rel='stylesheet' href='css/accordion.css'/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-	<script src="app.js"></script>
-	<title>Weather App</title>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/accordion.js"></script>
+	<title>Weather Box</title>
 </head>
 <body>
-	<h1>Current weather conditions:</h1>
-	<ul>
-		
-	</ul>
+
+	<section class="currentInfo">
+		<div class="tools">
+			<div class="searchbar">search</div>
+			<div class="settings">settings</div>
+		</div>
+		<div class="mainInfo">
+			<div class="currentTemp">
+
+			</div>
+			<div class="location">
+
+			</div>
+		</div>
+		<div class="secondaryInfo">
+			<div class="currentIcon"></div>
+			<div class="metaInfo">
+			</div>
+		</div>
+	</section>
+
+	<div data-accordion-group>
+    <div class="accordion" data-accordion>
+        <div data-control>Next 24 hours brief forecast:<br><span class="dayBrief"></span></div>
+        <div data-content>
+            <div>Row</div>
+            <div>Row</div>
+            <div>Row</div>
+        </div>
+    </div>
+    <div class="accordion" data-accordion>
+        <div data-control>Next week brief forecast: <br><span class="weekBrief"></span></div>
+        <div data-content>
+            <div>Row</div>
+            <div>Row</div>
+            <div>Row</div>
+        </div>
+    </div>
+	</div>
+
+
+
+
+
+
+
 </body>
 </html>
