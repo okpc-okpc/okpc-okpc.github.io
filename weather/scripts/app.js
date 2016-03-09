@@ -393,12 +393,12 @@ function showShortForecast () {
 
 function showLongForecast () {
 	$(".longInstance").each(function (index) {
-		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index) + "</p>")
-			.append("<p>" + fetcher.fetchTemp('daily', true, false, index) + "</p>")
-			.append("<p>" + fetcher.fetchTemp('daily', true, true, index) + "</p>")
+		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', true, false, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', true, true, index+1) + "</p>")
 			.append("<p>~icon~</p>")
-			.append("<p>" + fetcher.fetchCloudCover('daily', index) + "</p>")
-			.append("<p>" + fetcher.fetchHumidity('daily', index) + "</p>");
+			.append("<p>" + fetcher.fetchCloudCover('daily', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>");
 	});
 }
 
