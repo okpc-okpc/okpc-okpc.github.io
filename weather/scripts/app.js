@@ -2,14 +2,16 @@ var currentPlace = {};
 var wRequestUrl = "";
 var responds = {};
 var geoRespond;
-var temperature = 0;
+// var temperature = 0;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
-var metrical = true;
-var wUnits = {
-	metrical: ["°C", " m/s"],
-	imperial: ["°F", " mph"]
-};
-var wDirection = "";
+var isCelsius = true;
+// var wUnits = {
+// 	metrical: ["°C", " m/s"],
+// 	imperial: ["°F", " mph"]
+// };
+// var wDirection = "";
+var fetcher;
+var fetcherMaker;
 // var icons = {
 // 	"clear-day":,
 // 	"clear-night":,
@@ -24,7 +26,17 @@ var wDirection = "";
 // }
 
 
+
+
+
+
 var getCoordinates = (function () {
+	var geoposition,
+		options = {
+			maximumAge: 1000,
+			timeout: 15000,
+			enableHighAccuracy: false
+		};
 
 	function showError(error) {
 		switch (error.code) {
@@ -38,13 +50,6 @@ var getCoordinates = (function () {
 			throw "An unknown error occurred.";
 		}
 	}
-
-	var geoposition,
-		options = {
-			maximumAge: 1000,
-			timeout: 15000,
-			enableHighAccuracy: false
-		};
 
 	function _onSuccess(callback, position) {
 		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
@@ -69,40 +74,19 @@ var getCoordinates = (function () {
 	return {
 		location: _getLocation
 	};
-
 }());
 
-/*function getCoordinates() {
-var options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
-function success(pos) {
-  currentPlace = pos.coords;
-
-  console.log('Your current position is:');
-  console.log('Latitude : ' + currentPlace.latitude);
-  console.log('Longitude: ' + currentPlace.longitude);
-  console.log('More or less ' + currentPlace.accuracy + ' meters.');
-};
-
-function error(err) {
-  console.warn('ERROR(' + err.code + '): ' + err.message);
-};
-navigator.geolocation.getCurrentPosition(success, error, options)
-};
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
 */
-
-
 
 function reverseGeo() {
 
-	var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
-
+	var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q="
+		 + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
 	console.log(geoRequestUrl);
-
-
 
 	$.ajax({
 		url: geoRequestUrl,
@@ -123,9 +107,11 @@ function reverseGeo() {
 	})
 }
 
-
-
-
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
+*/
 
 function getWeather() {
 
@@ -141,7 +127,18 @@ function getWeather() {
 				console.log("Inside getWeather: ");
 				console.log(responds);
 			},
-			function() {showWeather()}
+			function() {
+				fetcher = fetcherMaker(responds);
+				console.log('fetcher inside AJAX:');
+				console.log(fetcher);
+				console.log(fetcher.fetchHumidity('current'));
+			},
+			function() {
+				showCurrentWeather();
+				showShortForecast();
+				showLongForecast();
+				// console.log('I invoked fetcher');
+			}
 		],
 		error: function (xhr, status, errorThrown) {
 			console.log("getWeather: " + status);
@@ -153,103 +150,278 @@ function getWeather() {
 	})
 }
 
-function showWeather() {
-	console.log("Inside showWeather: ");
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
+*/
+
+fetcherMaker = function (weatherdata) {
+
+	/*	Get temperature from JSON
+		timeRange: 		'currently', 'hourly' or 'daily'
+		isCelsius: 		true - Celsius, false - Farenheit
+		apparent: 		true - 'feels like' temp; false - real temp
+		dataInstance: 	number of hour or day (empty string in 'current' case)
+	*/
+	function getTemp(timeRange, isCelsius, apparent, dataInstance) {
+		var tempCurr, tempMax, tempMin, tempDaily, temp, tempOption;
+
+		var tempSign = function (val) {
+			 if (val > 0)
+			 	val = "+" + val
+			 return val
+		}
+
+		if (apparent)
+			tempOption = "apparentTemperature";
+		else
+			tempOption = "temperature";
+
+		if (timeRange === "currently") {
+			tempCurr = weatherdata.currently[tempOption];
+		} else if (timeRange === "hourly") {
+			temp = weatherdata.hourly.data[dataInstance][tempOption];
+		} else if (timeRange === "daily") {
+			tempMax = weatherdata.daily.data[dataInstance][tempOption+"Max"];
+			tempMin = weatherdata.daily.data[dataInstance][tempOption+"Min"];
+		}
+
+		if (isCelsius) {
+			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8)) + "°C";
+			temp = tempSign(Math.round((temp - 32) / 1.8)) + "°C";
+			tempMax = tempSign(Math.round((tempMax - 32) / 1.8));
+			tempMin = tempSign(Math.round((tempMin - 32) / 1.8));
+
+			tempDaily = tempMin + ".." + tempMax + "°C";
+		} else if (!isCelsius) {
+			tempCurr = Math.round(tempCurr) + "°F";
+			temp = Math.round(temp) + "°F";
+			tempMax = Math.round(tempMax);
+			tempMin = Math.round(tempMin);
+			tempDaily = tempMin + ".." + tempMax + "°F";
+		}
+
+		if (timeRange === "currently") {
+			return tempCurr;
+		} else if (timeRange === "hourly") {
+			return temp;
+		} else if (timeRange === "daily") {
+			return tempDaily
+		}
+	}
+
+	/*
+		Get cloud cover from JSON
+		timeRange: 		'currently', 'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string in 'current' case)
+	*/
+	function getCloudCover(timeRange, dataInstance) {
+		var cloudiness;
+		if (timeRange === "currently") {
+			cloudiness = Math.round(weatherdata.currently.cloudCover * 100)
+		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
+			cloudiness = Math.round(weatherdata[timeRange].data[dataInstance].cloudCover * 100)
+		}
+
+		return cloudiness+"%"
+	}
+
+	/*
+		Get humidity from JSON
+		timeRange: 		'currently', 'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string in 'current' case)
+	*/
+	function getHumidity(timeRange, dataInstance) {
+		var humidity;
+		if (timeRange === "currently") {
+			humidity = Math.round(weatherdata.currently.humidity * 100)
+		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
+			humidity = Math.round(weatherdata[timeRange].data[dataInstance].humidity * 100)
+		}
+
+		return humidity+"%"
+	}
+
+	/*
+		Get wind speed from JSON
+		timeRange: 		'currently', 'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string in 'current' case)
+		unit:			' m/s', ' km/h', ' mph'
+	*/
+	function getWindSpeed(timeRange, unit, dataInstance) {
+		var windSpeed;
+		if (timeRange === "currently") {
+			windSpeed = weatherdata.currently.windSpeed;
+		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
+			windSpeed = weatherdata[timeRange].data[dataInstance].windSpeed
+		}
+
+		if (unit === " m/s") {
+			windSpeed = (windSpeed * 0.44704).toPrecision(2) + unit;
+		} else if (unit === " km/h") {
+			windSpeed = (windSpeed * 1.60934).toPrecision(2) + unit;
+		} else if (unit === " mph") {
+			windSpeed = windSpeed + unit
+		}
+
+		return windSpeed
+	}
+
+	/*
+		Get wind direction from JSON and convert it
+		timeRange: 		'currently', 'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string in 'current' case)
+	*/
+	function getWindDirection(timeRange, dataInstance) {
+		var direction, wDirection;
+		if (timeRange === "currently") {
+			direction = weatherdata.currently.windBearing
+		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
+			direction = weatherdata[timeRange].data[dataInstance].windBearing
+		}
+
+		switch (true) {
+		case direction < 11.25:
+			wDirection = "N";
+			break;
+		case (direction >= 11.25 && direction < 56.25):
+			wDirection = "NE";
+			break;
+		case (direction >= 56.25 && direction < 101.25):
+			wDirection = "E";
+			break;
+		case (direction >= 101.25 && direction < 146.25):
+			wDirection = "SE";
+			break;
+		case (direction >= 146.25 && direction < 191.25):
+			wDirection = "S";
+			break;
+		case (direction >= 191.25 && direction < 236.25):
+			wDirection = "SW";
+			break;
+		case (direction >= 236.25 && direction < 281.25):
+			wDirection = "W";
+			break;
+		case (direction >= 281.25 && direction < 326.25):
+			wDirection = "NW";
+			break;
+		case direction >= 326.25:
+			wDirection = "N";
+			break;
+		}
+		return wDirection
+	}
+
+	/*
+		Get wind time and date from JSON
+		timeRange: 		'hourly' or 'daily'
+		dataInstance: 	number of hour or day
+	*/
+	function getTimepoint(timeRange, dataInstance) {
+		var timestmp = new Date((weatherdata[timeRange].data[dataInstance].time) * 1000);
+		if (timeRange === 'hourly') {
+			return timestmp.getHours()
+		} else if (timeRange === 'daily') {
+			return timestmp.getDate() + "/" + (timestmp.getMonth()+1)
+		}
+	}
+	console.log('Inside fetcherMaker');
+	console.log(weatherdata);
+	return {
+		fetchTemp: getTemp,
+		fetchCloudCover: getCloudCover,
+		fetchHumidity: getHumidity,
+		fetchWindSpeed: getWindSpeed,
+		fetchWindDirection: getWindDirection,
+		fetchTimepoint: getTimepoint
+	}
+}
+
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
+*/
+
+function showCurrentWeather() {
+	console.log("Inside showCurrentWeather: ");
 	console.log(responds);
-	convert();
-	if (metrical) {
-		$(".currentTemp").append("<span class='currTemp'>" + responds.currently.temperature + wUnits.metrical[0] + "</span>")
-		.append("<p>feels like " + responds.currently.apparentTemperature + wUnits.metrical[0] + "</p>");
-		$(".location").append(
+	console.log(fetcher);
+
+	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + "</span>")
+		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + "</p>");
+
+	$(".location").append(
 			"<p>" + (geoRespond.results[0].components.city
 			|| (geoRespond.results[0].components.town + "<br>" + geoRespond.results[0].components.state))
 			 + "<br>" + geoRespond.results[0].components.country + "</p>");
-		$(".currentIcon").append(responds.currently.summary);
-		$(".metaInfo").append(
-			"<p>Humidity: " + responds.currently.humidity
-			+ "%<br>Cloudiness: " + responds.currently.cloudCover
-			+ "%<br>Wind: " + responds.currently.windSpeed + wUnits.metrical[1]
-			+ " (" + wDirection + ")"
-			+ "</p>");
-		$(".dayBrief").append(responds.hourly.summary);
-		$(".weekBrief").append(responds.daily.summary);
+
+	$(".currentIcon").append(responds.currently.summary);
+
+	$(".metaInfo").append(
+		"<p>Humidity: " + fetcher.fetchHumidity('currently')
+		+ "<br>Cloudiness: " + fetcher.fetchCloudCover('currently')
+		+ "<br>Wind: " + fetcher.fetchWindSpeed('currently', ' m/s')
+		+ " (" + fetcher.fetchWindDirection('currently') + ")"
+		+ "</p>");
+
+	$(".dayBrief").append(responds.hourly.summary);
+
+	$(".weekBrief").append(responds.daily.summary);
 
 
+}
 
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
+*/
 
-	// 	$("ul")
-	// 		.html("<li>Location: " + (geoRespond.results[0].components.city || (geoRespond.results[0].components.town + ", " + geoRespond.results[0].components.state)) + ", " + geoRespond.results[0].components.country
-	// 			+ " (LAT: " + currentPlace.latitude + " - LON: " + currentPlace.longitude + ")"
-	// 			+ "</li><li>Temperature: " + responds.currently.temperature + wUnits.metrical[0]
-	// 			+ "; feels like " + responds.currently.apparentTemperature + wUnits.metrical[0]
-	// 			+ "</li><li>Conditions: " + responds.currently.summary
-	// 			+ "</li><li>Cloudiness: " + responds.currently.cloudCover + "%"
-	// 			+ "</li><li>Humidity: " + responds.currently.humidity + "%"
-	// 			+ "</li><li>Wind speed: " + responds.currently.windSpeed + wUnits.metrical[1] + " (direction - " + wDirection + ")")
-	// 		.after("<p><strong>Next 24 hours brief forecast: </strong>" + responds.hourly.summary + "</p>");
-	 }
+function showShortForecast () {
+	$(".shortInstance").each(function (index) {
+		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index) + ':00' + "</p>")
+			.append("<p>" + fetcher.fetchTemp('hourly', true, false, index) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('hourly', true, true, index) + "</p>")
+			.append("<p>~icon~</p>")
+			.append("<p>" + fetcher.fetchCloudCover('hourly', index) + "</p>")
+			.append("<p>" + fetcher.fetchHumidity('hourly', index) + "</p>");
+	});
 }
 
 
-function convert() {
-	if (metrical) {
-		responds.currently.temperature = Math.round((responds.currently.temperature - 32) / 1.8);
-		responds.currently.apparentTemperature = Math.round((responds.currently.apparentTemperature - 32) / 1.8);
-		responds.currently.cloudCover = Math.round(responds.currently.cloudCover * 100);
-		responds.currently.humidity = Math.round(responds.currently.humidity * 100);
-		responds.currently.windSpeed = (responds.currently.windSpeed * 0.44704).toPrecision(2);
-	}
-
-	var direction = responds.currently.windBearing;
-	switch (true) {
-	case direction < 11.25:
-		wDirection = "N";
-		break;
-	case (direction >= 11.25 && direction < 56.25):
-		wDirection = "NE";
-		break;
-	case (direction >= 56.25 && direction < 101.25):
-		wDirection = "E";
-		break;
-	case (direction >= 101.25 && direction < 146.25):
-		wDirection = "SE";
-		break;
-	case (direction >= 146.25 && direction < 191.25):
-		wDirection = "S";
-		break;
-	case (direction >= 191.25 && direction < 236.25):
-		wDirection = "SW";
-		break;
-	case (direction >= 236.25 && direction < 281.25):
-		wDirection = "W";
-		break;
-	case (direction >= 281.25 && direction < 326.25):
-		wDirection = "NW";
-		break;
-	case direction >= 326.25:
-		wDirection = "N";
-		break;
-	}
+function showLongForecast () {
+	$(".longInstance").each(function (index) {
+		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', true, false, index) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', true, true, index) + "</p>")
+			.append("<p>~icon~</p>")
+			.append("<p>" + fetcher.fetchCloudCover('daily', index) + "</p>")
+			.append("<p>" + fetcher.fetchHumidity('daily', index) + "</p>");
+	});
 }
+
+
+
+/*=========================================================
+  =========================================================
+  =========================================================
+  =========================================================
+  =========================================================
+  =========================================================*/
+
 
 
 $(document).ready(function () {
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');
-		//reverseGeo();
-		//getWeather()
-
-
-
-		/*$(document).ajaxComplete(function() {
-			showWeather();
-		});*/
-
-		$('.accordion').accordion({
-			"transitionSpeed": 600,
-			transitionEasing: "cubic-bezier(0.64, 0.01, 0.15, 0.98)"
-		});
 	});
+	$('.accordion').accordion({
+		"transitionSpeed": 600,
+		transitionEasing: "cubic-bezier(0.64, 0.01, 0.15, 0.98)"
+	});
+});
 
 
 
@@ -264,7 +436,6 @@ https://api.opencagedata.com/geocode/v1/json?q=47.959123999999996+37.7931349&lan
 Weather report:
 https://developer.forecast.io/docs/v2#forecast_call
 
-
 autocomplete:
 http://geobytes.com/free-ajax-cities-jsonp-api/
 https://developers.google.com/maps/documentation/javascript/places-autocomplete
@@ -278,5 +449,3 @@ accordion: http://vctrfrnndz.github.io/jquery-accordion/
 
 
 */
-
-});

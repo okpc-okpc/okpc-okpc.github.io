@@ -73,12 +73,16 @@ div {
 }
 
 [data-accordion-group] {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 [data-control] {
 	font-size: 0.9rem;
+}
+
+[data-content] {
+	padding: 0;
 }
 
 .dayBrief, .weekBrief {
@@ -92,3 +96,37 @@ div {
     background-repeat: no-repeat;
     background-size: contain;
 }*/
+
+.shortForecast, {
+	display: flex;
+	flex-direction: column;
+	max-width: 700px;
+	margin: 0 auto;
+	background-color: cadetblue;
+}
+
+.shortlist {
+	display: flex;
+	background-color: peru;
+	margin: 10px;
+}
+
+.labels, .shortInstance, .longInstance {
+	background-color: lightgreen;
+	margin: 5px;
+}
+
+.labels>p, .shortInstance>p, .longInstance>p {
+	font-size: 0.85rem;
+}
+
+.labels {
+	padding-top: 39px;
+}
+
+.longForecast {
+	display: flex;
+	max-width: 700px;
+	margin: 0 auto;
+	background-color: cadetblue;
+}
