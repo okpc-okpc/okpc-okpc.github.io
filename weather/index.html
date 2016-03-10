@@ -16,28 +16,56 @@
 <body>
 
 	<section class="currentInfo">
+
 		<div class="tools">
 			<div class="searchbar">search</div>
-			<div class="settings">settings</div>
+			<div class="windSettings">
+				<div class="toggle_radio">
+					<input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
+					<input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
+					<input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
+					<label for="first_toggle"><p>m/s</p></label>
+					<label for="second_toggle"><p>km/h</p></label>
+					<label for="third_toggle"><p>mph</p></label>
+					<div class="toggle_option_slider"></div>
+				</div>
+			</div>
+			<div class="tempSettings">
+				<!-- <div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+					<label class="onoffswitch-label" for="myonoffswitch">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div> -->
+				<div class="toggle_radio" id="toggleTemp">
+					<input type="radio" checked class="toggle_option" id="first_toggle-2" name="toggle_temp">
+					<input type="radio" class="toggle_option" id="second_toggle-2" name="toggle_temp">
+					<label for="first_toggle-2"><p>°C</p></label>
+					<label for="second_toggle-2"><p>°F</p></label>
+					<div class="toggle_option_slider"></div>
+				</div>
+			</div>
 		</div>
+
 		<div class="mainInfo">
-			<div class="currentTemp">
+			<div class="currentTemp data">
 
 			</div>
-			<div class="location">
+			<div class="location data">
 
 			</div>
 		</div>
 		<div class="secondaryInfo">
-			<div class="currentIcon"></div>
-			<div class="metaInfo">
+			<div class="currentIcon data"></div>
+			<div class="metaInfo data">
 			</div>
 		</div>
 	</section>
 
 	<div data-accordion-group>
 	<div class="accordion" data-accordion>
-		<div data-control>Next 24 hours brief forecast:<br><span class="dayBrief"></span></div>
+		<div data-control>Next 24 hours brief forecast:<br><span class="dayBrief data"></span></div>
 		<div data-content>
 			<section class="shortForecast">
 				<div class="shortlist">
@@ -47,15 +75,17 @@
 						<p>Conditions</p>
 						<p>Cloudiness</p>
 						<p>Humidity</p>
+						<p class="windUnit">Wind, </p>
+						<p>Direction</p>
 					</div>
-					<div class="shortInstance" id="short01"></div>
-					<div class="shortInstance" id="short02"></div>
-					<div class="shortInstance" id="short03"></div>
-					<div class="shortInstance" id="short04"></div>
-					<div class="shortInstance" id="short05"></div>
-					<div class="shortInstance" id="short06"></div>
-					<div class="shortInstance" id="short07"></div>
-					<div class="shortInstance" id="short08"></div>
+					<div class="shortInstance data" id="short01"></div>
+					<div class="shortInstance data" id="short02"></div>
+					<div class="shortInstance data" id="short03"></div>
+					<div class="shortInstance data" id="short04"></div>
+					<div class="shortInstance data" id="short05"></div>
+					<div class="shortInstance data" id="short06"></div>
+					<div class="shortInstance data" id="short07"></div>
+					<div class="shortInstance data" id="short08"></div>
 				</div>
 				<div class="shortlist">
 					<div class="labels">
@@ -64,15 +94,17 @@
 						<p>Conditions</p>
 						<p>Cloudiness</p>
 						<p>Humidity</p>
+						<p class="windUnit">Wind, </p>
+						<p>Direction</p>
 					</div>
-					<div class="shortInstance" id="short09"></div>
-					<div class="shortInstance" id="short10"></div>
-					<div class="shortInstance" id="short11"></div>
-					<div class="shortInstance" id="short12"></div>
-					<div class="shortInstance" id="short13"></div>
-					<div class="shortInstance" id="short14"></div>
-					<div class="shortInstance" id="short15"></div>
-					<div class="shortInstance" id="short16"></div>
+					<div class="shortInstance data" id="short09"></div>
+					<div class="shortInstance data" id="short10"></div>
+					<div class="shortInstance data" id="short11"></div>
+					<div class="shortInstance data" id="short12"></div>
+					<div class="shortInstance data" id="short13"></div>
+					<div class="shortInstance data" id="short14"></div>
+					<div class="shortInstance data" id="short15"></div>
+					<div class="shortInstance data" id="short16"></div>
 				</div>
 				<div class="shortlist">
 					<div class="labels">
@@ -81,22 +113,24 @@
 						<p>Conditions</p>
 						<p>Cloudiness</p>
 						<p>Humidity</p>
+						<p class="windUnit">Wind, </p>
+						<p>Direction</p>
 					</div>
-					<div class="shortInstance" id="short17"></div>
-					<div class="shortInstance" id="short18"></div>
-					<div class="shortInstance" id="short19"></div>
-					<div class="shortInstance" id="short20"></div>
-					<div class="shortInstance" id="short21"></div>
-					<div class="shortInstance" id="short22"></div>
-					<div class="shortInstance" id="short23"></div>
-					<div class="shortInstance" id="short24"></div>
+					<div class="shortInstance data" id="short17"></div>
+					<div class="shortInstance data" id="short18"></div>
+					<div class="shortInstance data" id="short19"></div>
+					<div class="shortInstance data" id="short20"></div>
+					<div class="shortInstance data" id="short21"></div>
+					<div class="shortInstance data" id="short22"></div>
+					<div class="shortInstance data" id="short23"></div>
+					<div class="shortInstance data" id="short24"></div>
 				</div>
 			</section>
 
 		</div>
 	</div>
 	<div class="accordion" data-accordion>
-		<div data-control>Next week brief forecast: <br><span class="weekBrief"></span></div>
+		<div data-control>Next week brief forecast: <br><span class="weekBrief data"></span></div>
 		<div data-content>
 		 	<section class="longForecast">
 				<div class="labels">
@@ -105,14 +139,16 @@
 					<p>Conditions</p>
 					<p>Cloudiness</p>
 					<p>Humidity</p>
+					<p>Wind</p>
+					<p>Direction</p>
 				</div>
-				<div class="longInstance" id="long1"></div>
-				<div class="longInstance" id="long2"></div>
-				<div class="longInstance" id="long3"></div>
-				<div class="longInstance" id="long4"></div>
-				<div class="longInstance" id="long5"></div>
-				<div class="longInstance" id="long6"></div>
-				<div class="longInstance" id="long7"></div>
+				<div class="longInstance data" id="long1"></div>
+				<div class="longInstance data" id="long2"></div>
+				<div class="longInstance data" id="long3"></div>
+				<div class="longInstance data" id="long4"></div>
+				<div class="longInstance data" id="long5"></div>
+				<div class="longInstance data" id="long6"></div>
+				<div class="longInstance data" id="long7"></div>
 		 	</section>
 		</div>
 	</div>

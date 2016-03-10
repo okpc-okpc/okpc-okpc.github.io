@@ -5,6 +5,7 @@ var geoRespond;
 // var temperature = 0;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
 var isCelsius = true;
+var windUnit = 'm/s';
 // var wUnits = {
 // 	metrical: ["°C", " m/s"],
 // 	imperial: ["°F", " mph"]
@@ -257,12 +258,10 @@ fetcherMaker = function (weatherdata) {
 			windSpeed = weatherdata[timeRange].data[dataInstance].windSpeed
 		}
 
-		if (unit === " m/s") {
-			windSpeed = (windSpeed * 0.44704).toPrecision(2) + unit;
-		} else if (unit === " km/h") {
-			windSpeed = (windSpeed * 1.60934).toPrecision(2) + unit;
-		} else if (unit === " mph") {
-			windSpeed = windSpeed + unit
+		if (unit === "m/s") {
+			windSpeed = (windSpeed * 0.44704).toPrecision(2);
+		} else if (unit === "km/h") {
+			windSpeed = (windSpeed * 1.60934).toPrecision(2);
 		}
 
 		return windSpeed
@@ -362,7 +361,7 @@ function showCurrentWeather() {
 	$(".metaInfo").append(
 		"<p>Humidity: " + fetcher.fetchHumidity('currently')
 		+ "<br>Cloudiness: " + fetcher.fetchCloudCover('currently')
-		+ "<br>Wind: " + fetcher.fetchWindSpeed('currently', ' m/s')
+		+ "<br>Wind: " + fetcher.fetchWindSpeed('currently', windUnit) + " " + windUnit
 		+ " (" + fetcher.fetchWindDirection('currently') + ")"
 		+ "</p>");
 
@@ -381,12 +380,14 @@ function showCurrentWeather() {
 
 function showShortForecast () {
 	$(".shortInstance").each(function (index) {
-		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index) + ':00' + "</p>")
-			.append("<p>" + fetcher.fetchTemp('hourly', true, false, index) + "</p>")
-			.append("<p>" + fetcher.fetchTemp('hourly', true, true, index) + "</p>")
+		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index+1) + ':00' + "</p>")
+			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, false, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, true, index+1) + "</p>")
 			.append("<p>~icon~</p>")
-			.append("<p>" + fetcher.fetchCloudCover('hourly', index) + "</p>")
-			.append("<p>" + fetcher.fetchHumidity('hourly', index) + "</p>");
+			.append("<p>" + fetcher.fetchCloudCover('hourly', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchHumidity('hourly', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchWindSpeed('hourly', windUnit, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchWindDirection('hourly', index+1) + "</p>");
 	});
 }
 
@@ -394,13 +395,22 @@ function showShortForecast () {
 function showLongForecast () {
 	$(".longInstance").each(function (index) {
 		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
-			.append("<p>" + fetcher.fetchTemp('daily', true, false, index+1) + "</p>")
-			.append("<p>" + fetcher.fetchTemp('daily', true, true, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, true, index+1) + "</p>")
 			.append("<p>~icon~</p>")
 			.append("<p>" + fetcher.fetchCloudCover('daily', index+1) + "</p>")
-			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>");
+			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchWindSpeed('daily', windUnit, index+1) + "</p>")
+			.append("<p>" + fetcher.fetchWindDirection('daily', index+1) + "</p>");
+
 	});
 }
+
+
+function clearData () {
+	 $('.data').text("")
+}
+
 
 
 
@@ -421,6 +431,34 @@ $(document).ready(function () {
 		"transitionSpeed": 600,
 		transitionEasing: "cubic-bezier(0.64, 0.01, 0.15, 0.98)"
 	});
+
+	$(".tempSettings").on('click', function () {
+		if ($("#first_toggle-2").is(":checked")) {
+			isCelsius = true;
+		} else {
+			isCelsius = false;
+		}
+		clearData();
+		showCurrentWeather();
+		showShortForecast();
+		showLongForecast();
+	});
+
+	$(".toggle_radio").on('click', function () {
+		if ($("#first_toggle").is(":checked")) {
+			windUnit = 'm/s';
+		} else if ($("#second_toggle").is(":checked")) {
+			windUnit = 'km/h';
+		} else if ($("#third_toggle").is(":checked")) {
+			windUnit = 'mph';
+		}
+		console.log(windUnit)
+		clearData();
+		$(".windUnit").text("Wind, " + windUnit)
+		showCurrentWeather();
+		showShortForecast();
+		showLongForecast();
+	})
 });
 
 

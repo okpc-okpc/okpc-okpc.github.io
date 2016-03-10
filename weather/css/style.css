@@ -33,7 +33,7 @@ div {
 	justify-content: flex-end;
 }
 
-.searchbar, .settings {
+.searchbar, .tempSettings, .windSettings {
 	background-color: azure;
 	margin: 10px;
 }
@@ -43,8 +43,8 @@ div {
 	max-width: 200px;
 }
 
-.settings {
-	flex-grow: 0;
+.tempSettings, .windSettings {
+	//flex-grow: 0;
 }
 
 
@@ -117,7 +117,7 @@ div {
 }
 
 .labels>p, .shortInstance>p, .longInstance>p {
-	font-size: 0.85rem;
+	font-size: 0.8rem;
 }
 
 .labels {
@@ -129,4 +129,86 @@ div {
 	max-width: 700px;
 	margin: 0 auto;
 	background-color: cadetblue;
+}
+
+
+/*====================================
+  ==============OPTIONS===============
+  ====================================
+*/
+
+label>p {
+	margin: 0;
+	font-size: 0.8rem;
+}
+
+.toggle_radio{
+  position: relative;
+  background: salmon;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0 !important;
+  position: relative;
+  height: 26px;
+  width: 125px;
+}
+.toggle_radio > * {
+  float: left;
+}
+.toggle_radio input[type=radio]{
+  display: none;
+}
+.toggle_radio label{
+  /*color: ;*/
+  /*z-index: 0;*/
+  display: block;
+  width: 35px;
+  height: 20px;
+  margin: 3px 3px;
+  cursor: pointer;
+  /*z-index: 1;*/
+  text-align: center;
+}
+.toggle_option_slider{
+  width: 25px;
+  height: 10px;
+  position: absolute;
+  top: 3px;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  -ms-transition: all .4s ease;
+  transition: all .4s ease;
+}
+
+#first_toggle:checked ~ .toggle_option_slider{
+  background: rgb(255,255,255);
+  left: 3px;
+}
+#second_toggle:checked ~ .toggle_option_slider{
+  background: rgb(255,255,255);
+  left: 44px;
+}
+#third_toggle:checked ~ .toggle_option_slider{
+  background: rgb(255,255,255);
+  left: 87px;
+}
+
+
+
+#first_toggle-2:checked ~ .toggle_option_slider{
+  background: rgb(255,255,255);
+  left: 3px;
+}
+#second_toggle-2:checked ~ .toggle_option_slider{
+  background: rgb(255,255,255);
+  left: 44px;
+}
+
+#toggleTemp {
+	width: 82px;
+}
+
+#toggleTemp label {
+	width: 32px;
 }
