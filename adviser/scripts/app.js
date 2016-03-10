@@ -48,7 +48,7 @@ function getAdvice() {
 		type: "GET",
 		dataType: "json",
 		success: function(json) {
-			if (json.slip.advice.length <= 115) {
+			if (json.slip.advice.length <= 109) {
 				currentQuote = json.slip.advice;
 				console.log("I have an advice");
 				$("#quote").text(currentQuote);
@@ -102,7 +102,7 @@ $(document).ready(function() {
 	$("#twi").click(function() {				//twit current advice
 		$('.twitter-share-button').attr(
 			"href",
-			"https://twitter.com/intent/tweet?text=" + currentQuote + " - by The Advice Machine");
+			"https://twitter.com/intent/tweet?text=" + currentQuote + " - okpc-okpc.github.io/adviser/");
 	});
 
 												// Handle page visibility change
