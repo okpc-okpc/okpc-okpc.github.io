@@ -44,7 +44,7 @@ function updateRangeInputValue(val) {
 -------------------------------------------*/
 function getAdvice() {
 	$.ajax({
-		url: "http://cors.io/?u=http://api.adviceslip.com/advice",
+		url: "https://crossorigin.me/http://api.adviceslip.com/advice",
 		type: "GET",
 		dataType: "json",
 		success: function(json) {
