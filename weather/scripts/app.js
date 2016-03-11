@@ -4,8 +4,8 @@ var responds = {};
 var geoRespond;
 // var temperature = 0;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
-var isCelsius = true;
-var windUnit = 'm/s';
+var isCelsius;
+var windUnit;
 // var wUnits = {
 // 	metrical: ["°C", " m/s"],
 // 	imperial: ["°F", " mph"]
@@ -13,6 +13,7 @@ var windUnit = 'm/s';
 // var wDirection = "";
 var fetcher;
 var fetcherMaker;
+var storageFlag;
 // var icons = {
 // 	"clear-day":,
 // 	"clear-night":,
@@ -132,7 +133,6 @@ function getWeather() {
 				fetcher = fetcherMaker(responds);
 				console.log('fetcher inside AJAX:');
 				console.log(fetcher);
-				console.log(fetcher.fetchHumidity('current'));
 			},
 			function() {
 				showCurrentWeather();
@@ -168,6 +168,8 @@ fetcherMaker = function (weatherdata) {
 	function getTemp(timeRange, isCelsius, apparent, dataInstance) {
 		var tempCurr, tempMax, tempMin, tempDaily, temp, tempOption;
 
+
+
 		var tempSign = function (val) {
 			 if (val > 0)
 			 	val = "+" + val
@@ -188,15 +190,17 @@ fetcherMaker = function (weatherdata) {
 			tempMin = weatherdata.daily.data[dataInstance][tempOption+"Min"];
 		}
 
-		if (isCelsius) {
+		if (isCelsius === true) {
 			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8)) + "°C";
+			// console.log('BLIP!!!!');
 			temp = tempSign(Math.round((temp - 32) / 1.8)) + "°C";
 			tempMax = tempSign(Math.round((tempMax - 32) / 1.8));
 			tempMin = tempSign(Math.round((tempMin - 32) / 1.8));
 
 			tempDaily = tempMin + ".." + tempMax + "°C";
-		} else if (!isCelsius) {
+		} else if (isCelsius === false) {
 			tempCurr = Math.round(tempCurr) + "°F";
+			// console.log('BLOP!!!!');
 			temp = Math.round(temp) + "°F";
 			tempMax = Math.round(tempMax);
 			tempMin = Math.round(tempMin);
@@ -347,6 +351,8 @@ function showCurrentWeather() {
 	console.log("Inside showCurrentWeather: ");
 	console.log(responds);
 	console.log(fetcher);
+	console.log('isCelsius: ' + isCelsius);
+	// isCelsius = localStorage.isCelsius || isCelsius;
 
 	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + "</span>")
 		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + "</p>");
@@ -379,6 +385,8 @@ function showCurrentWeather() {
 */
 
 function showShortForecast () {
+	// isCelsius = localStorage.isCelsius || isCelsius;
+	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".shortInstance").each(function (index) {
 		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index+1) + ':00' + "</p>")
 			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, false, index+1) + "</p>")
@@ -389,10 +397,13 @@ function showShortForecast () {
 			.append("<p>" + fetcher.fetchWindSpeed('hourly', windUnit, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindDirection('hourly', index+1) + "</p>");
 	});
+	$(".windUnit").text("Wind, " + windUnit)
 }
 
 
 function showLongForecast () {
+	// isCelsius = localStorage.isCelsius || isCelsius;
+	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".longInstance").each(function (index) {
 		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
@@ -402,8 +413,8 @@ function showLongForecast () {
 			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindSpeed('daily', windUnit, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindDirection('daily', index+1) + "</p>");
-
 	});
+	$(".windUnit").text("Wind, " + windUnit)
 }
 
 
@@ -411,8 +422,70 @@ function clearData () {
 	 $('.data').text("")
 }
 
+/*
+	==================================================================================================================
+	==================================================================================================================
+	==================================================================================================================
+*/
+
+function storageAvailability(type) {
+	try {
+		var storage = window[type],
+			x = '__storage_test__';
+		storage.setItem(x, x);
+		storage.removeItem(x);
+		return true;
+	}
+	catch(e) {
+		return false;
+	}
+}
 
 
+function togglesInitialState() {
+
+//check Local Storage availability
+	if(storageAvailability('localStorage')) {
+		storageFlag = true;
+	}
+
+	 if(storageFlag === true) {
+//Initialize temperature
+
+		isCelsius = localStorage.isCelsius || true;
+	 	if(localStorage.isCelsius === 'true' || isCelsius === true) {
+	 		$('#first_toggle-2').prop('checked', 'checked');
+	 		isCelsius = true;
+	 	}
+	 	else if(localStorage.isCelsius === 'false' || isCelsius === false){
+	 		$('#second_toggle-2').prop('checked', 'checked');
+	 		isCelsius = false;
+	 	}
+
+//Initialize wind speed
+		windUnit = localStorage.windUnit || 'm/s';
+	 	if(localStorage.windUnit === 'm/s' || windUnit === 'm/s') {
+	 		$('#first_toggle').prop('checked', 'checked');
+	 		windUnit = 'm/s';
+	 	} else if(localStorage.windUnit === 'km/h' || windUnit === 'km/h'){
+	 		$('#second_toggle').prop('checked', 'checked');
+	 		windUnit = 'km/h';
+	 	}
+	 	else if(localStorage.windUnit === 'mph' || windUnit === 'mph'){
+	 		$('#third_toggle').prop('checked', 'checked');
+	 		windUnit = 'mph';
+	 	}
+//default temperature and wind units if local storage isn't available
+	 } else if(storageFlag === false) {
+	 	$('#first_toggle-2').prop('checked', 'checked');
+	 	isCelsius = true;
+	 	$('#first_toggle').prop('checked', 'checked');
+	 	isCelsius = 'm/s';
+	 }
+
+
+
+}
 
 /*=========================================================
   =========================================================
@@ -424,19 +497,31 @@ function clearData () {
 
 
 $(document).ready(function () {
+	togglesInitialState();
+
+//ask user and get current coordinates from browser
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');
 	});
+
+//make accordion for forecasts
 	$('.accordion').accordion({
 		"transitionSpeed": 600,
 		transitionEasing: "cubic-bezier(0.64, 0.01, 0.15, 0.98)"
 	});
 
+//temperature value toggler
 	$(".tempSettings").on('click', function () {
-		if ($("#first_toggle-2").is(":checked")) {
+		if ($("#first_toggle-2").prop("checked")) {
 			isCelsius = true;
+			if(storageFlag === true) {
+				localStorage.isCelsius = true
+			}
 		} else {
 			isCelsius = false;
+			if(storageFlag === true) {
+				localStorage.isCelsius = false
+			}
 		}
 		clearData();
 		showCurrentWeather();
@@ -444,21 +529,26 @@ $(document).ready(function () {
 		showLongForecast();
 	});
 
+//wind speed value toggler
 	$(".toggle_radio").on('click', function () {
-		if ($("#first_toggle").is(":checked")) {
+		if ($("#first_toggle").prop("checked")) {
 			windUnit = 'm/s';
-		} else if ($("#second_toggle").is(":checked")) {
+			localStorage.windUnit = 'm/s'
+		} else if ($("#second_toggle").prop("checked")) {
 			windUnit = 'km/h';
-		} else if ($("#third_toggle").is(":checked")) {
+			localStorage.windUnit = 'km/h'
+		} else if ($("#third_toggle").prop("checked")) {
 			windUnit = 'mph';
+			localStorage.windUnit = 'mph'
 		}
 		console.log(windUnit)
 		clearData();
-		$(".windUnit").text("Wind, " + windUnit)
+
 		showCurrentWeather();
 		showShortForecast();
 		showLongForecast();
-	})
+	});
+
 });
 
 
