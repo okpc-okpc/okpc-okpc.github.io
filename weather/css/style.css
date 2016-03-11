@@ -182,26 +182,26 @@ label>p {
 }
 
 #first_toggle:checked ~ .toggle_option_slider{
-  background: rgb(255,255,255);
+  background: rgba(240,255,255, .75);
   left: 3px;
 }
 #second_toggle:checked ~ .toggle_option_slider{
-  background: rgb(255,255,255);
+  background: rgba(240,255,255, .75);
   left: 44px;
 }
 #third_toggle:checked ~ .toggle_option_slider{
-  background: rgb(255,255,255);
+  background: rgba(240,255,255, .75);
   left: 87px;
 }
 
 
 
 #first_toggle-2:checked ~ .toggle_option_slider{
-  background: rgb(255,255,255);
+  background: rgba(240,255,255, .75);
   left: 3px;
 }
 #second_toggle-2:checked ~ .toggle_option_slider{
-  background: rgb(255,255,255);
+  background: rgba(240,255,255, .75);
   left: 44px;
 }
 
