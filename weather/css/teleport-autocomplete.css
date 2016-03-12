@@ -1,0 +1,99 @@
+/*! teleport-autocomplete - v0.3.0 | https://github.com/teleport/autocomplete#readme | MIT */
+.tp-autocomplete {
+  position: relative;
+  max-width: 25em; }
+
+.tp-ac__input {
+  width: 100%;
+  padding: 0.2em;
+  border: solid 1px transparent;
+  border-radius: 0;
+  background-color: #fafafa;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+  font-size: 1rem;
+  /*font-weight: bold;*/
+  -webkit-appearance: none;
+  text-overflow: ellipsis; }
+  .tp-ac__input::-webkit-input-placeholder {
+    color: #ccc;
+    -webkit-font-smoothing: antialiased; }
+  .tp-ac__input::-moz-placeholder {
+    color: #ccc;
+    -webkit-font-smoothing: antialiased; }
+  .tp-ac__input:-ms-input-placeholder {
+    color: #ccc;
+    -webkit-font-smoothing: antialiased; }
+  .tp-ac__input::placeholder {
+    color: #ccc;
+    -webkit-font-smoothing: antialiased; }
+  .tp-ac__input:focus {
+    outline: none; }
+  .tp-ac__input::-ms-clear {
+    display: none; }
+  .spinner .tp-ac__input {
+    /*padding-right: 1.5em;*/
+    /*margin-right: -1.5em;*/
+     }
+
+.tp-ac__list {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+  color: #979797;
+  background-color: #fff;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+  font-size: 1rem;
+  }
+
+.tp-ac__item {
+  font-size: 1rem;
+  overflow: hidden;
+  padding: 0 0.2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+  .tp-ac__item:hover,
+  .tp-ac__item.is-active {
+    background-color: #ddd; }
+  .tp-ac__item.no-results,
+  .tp-ac__item.no-results:hover {
+    cursor: default;
+    background-color: #fff; }
+  .tp-ac__item span {
+    color: #4a4a4a;
+    /*font-weight: bold;*/
+     }
+
+@-webkit-keyframes spinner {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes spinner {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+.spinner:before {
+  position: absolute;
+  top: 25%;
+  right: 0.5em;
+  width: 15px;
+  height: 15px;
+  /*margin-top: -0.625em;*/
+  /*margin-left: -0.625em;*/
+  content: '';
+  -webkit-animation: spinner 1s linear infinite;
+          animation: spinner 1s linear infinite;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%; }
+
+/*# sourceMappingURL=teleport-autocomplete.css.map */

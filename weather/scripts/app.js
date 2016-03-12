@@ -14,6 +14,7 @@ var windUnit;
 var fetcher;
 var fetcherMaker;
 var storageFlag;
+var searchResult = {};
 // var icons = {
 // 	"clear-day":,
 // 	"clear-night":,
@@ -85,15 +86,20 @@ var getCoordinates = (function () {
 */
 
 function reverseGeo() {
-
-	var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q="
-		 + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
+	console.log(searchResult);
+	var lat = searchResult.latitude || currentPlace.latitude;
+	var lon = searchResult.longitude || currentPlace.longitude;
+	 // var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q="
+		//  + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
+	var geoRequestUrl = "https://api.teleport.org/api/locations/"
+		+ lat + ","	+ lon
+		+ "/?embed=location%3Anearest-cities%2Flocation%3Anearest-city";
 	console.log(geoRequestUrl);
 
 	$.ajax({
 		url: geoRequestUrl,
 		type: "GET",
-		dataType: "jsonp",
+		dataType: "json",
 		success: function (geo) {
 			geoRespond = geo;
 			console.log(geoRespond);
@@ -116,8 +122,10 @@ function reverseGeo() {
 */
 
 function getWeather() {
-
-	wRequestUrl = "https://api.forecast.io/forecast/" + appId + "/" + currentPlace.latitude + "," + currentPlace.longitude;
+	clearData();
+	var lat = searchResult.latitude || currentPlace.latitude;
+	var lon = searchResult.longitude || currentPlace.longitude
+	wRequestUrl = "https://api.forecast.io/forecast/" + appId + "/" + lat + "," + lon;
 	console.log(wRequestUrl);
 
 	$.ajax({
@@ -357,10 +365,15 @@ function showCurrentWeather() {
 	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + "</span>")
 		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + "</p>");
 
-	$(".location").append(
-			"<p>" + (geoRespond.results[0].components.city
-			|| (geoRespond.results[0].components.town + "<br>" + geoRespond.results[0].components.state))
-			 + "<br>" + geoRespond.results[0].components.country + "</p>");
+	// $(".location").append(
+	// 		"<p>" + (geoRespond.results[0].components.city
+	// 		|| (geoRespond.results[0].components.town + "<br>" + geoRespond.results[0].components.state))
+	// 		 + "<br>" + geoRespond.results[0].components.country + "</p>");
+	console.log(geoRespond);
+	$(".location").append("<p>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name)
+		+ "<br>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name)
+		+ "<br>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name) + "</p>");
+	//console.log((geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].full_name));
 
 	$(".currentIcon").append(responds.currently.summary);
 
@@ -498,7 +511,10 @@ function togglesInitialState() {
 
 $(document).ready(function () {
 	togglesInitialState();
-
+	TeleportAutocomplete.init('.my-input').on('change', function(value) {
+        searchResult = value;
+        reverseGeo();
+      });
 //ask user and get current coordinates from browser
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');

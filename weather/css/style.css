@@ -10,7 +10,7 @@ body {
 }
 
 div {
-	padding: 5px;
+	/*padding: 5px;*/
 }
 
 .currentInfo {
@@ -26,10 +26,12 @@ div {
 	display: flex;
 	background-color: lightblue;
 	margin: 10px;
+	justify-content: space-between;
 }
 
 .tools {
 	justify-content: flex-end;
+	align-items: center;
 }
 
 .searchbar, .tempSettings, .windSettings {
@@ -39,7 +41,8 @@ div {
 
 .searchbar {
 	flex-grow: 1;
-	max-width: 200px;
+	/*max-width: 200px;*/
+
 
 }
 
@@ -170,8 +173,8 @@ label>p {
   text-align: center;
 }
 .toggle_option_slider{
-  width: 25px;
-  height: 10px;
+  width: 35px;
+  height: 20px;
   position: absolute;
   top: 3px;
   -webkit-transition: all .4s cubic-bezier(0.81, -0.36, 0.29, 1.28);
@@ -212,3 +215,15 @@ label>p {
 #toggleTemp label {
 	width: 32px;
 }
+
+
+
+
+
+
+
+/*.tp-ac__input {
+	padding: 0;
+	font-weight: normal;
+	font-size: 1rem;
+}*/

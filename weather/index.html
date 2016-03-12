@@ -7,8 +7,9 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet' href='css/style.css'/>
 	<link rel='stylesheet' href='css/accordion.css'/>
+	<link rel="stylesheet" href="css/teleport-autocomplete.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
+    <script src="scripts/teleport-autocomplete.js"></script>
 	<script src="scripts/app.js"></script>
 	<script src="scripts/accordion.js"></script>
 	<title>Forecastico!</title>
@@ -18,7 +19,9 @@
 	<section class="currentInfo">
 
 		<div class="tools">
-			<div class="searchbar">search</div>
+			<div class="searchbar">
+				<input type="text" class="my-input" name="field" tabindex="1" autocomplete="off" placeholder="Search...">
+			</div>
 			<div class="windSettings">
 				<div class="toggle_radio">
 					<input type="radio" class="toggle_option" id="first_toggle" name="toggle_option">
