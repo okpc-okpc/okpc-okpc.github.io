@@ -461,10 +461,10 @@ function showCurrentWeather() {
 
 function showShortForecast () {
 	$(".shortInstance").each(function (index) {
-		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index+1) + ':00' + "</p>")
+		$(this).append("<p class='time'>" + fetcher.fetchTimepoint('hourly', index+1) + ':00' + "</p>")
 			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, false, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, true, index+1) + "</p>")
-			.append(fetcher.fetchIcon('hourly', index+1))
+			.append("<p>" + fetcher.fetchIcon('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchCloudCover('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchHumidity('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindSpeed('hourly', windUnit, index+1) + "</p>")
@@ -479,10 +479,10 @@ function showLongForecast () {
 	// isCelsius = localStorage.isCelsius || isCelsius;
 	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".longInstance").each(function (index) {
-		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
+		$(this).append("<p class='time'>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, true, index+1) + "</p>")
-			.append(fetcher.fetchIcon('daily', index+1))
+			.append("<p>" + fetcher.fetchIcon('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchCloudCover('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindSpeed('daily', windUnit, index+1) + "</p>")
@@ -605,7 +605,7 @@ $(document).ready(function () {
 
 //make accordion for forecasts
 	$('.accordion').accordion({
-		"transitionSpeed": 600,
+		"transitionSpeed": 800,
 		transitionEasing: "cubic-bezier(0.64, 0.01, 0.15, 0.98)"
 	});
 
