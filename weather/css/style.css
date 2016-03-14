@@ -6,7 +6,7 @@
 
 body {
 
-	background-color: rgb(240, 241, 168);
+	background-color: rgba(241, 243, 109, 0.53);
 }
 
 div {
@@ -17,14 +17,15 @@ div {
 	display: flex;
 	flex-direction: column;
 	max-width: 600px;
-	margin: 0 auto;
-	background-color: tomato;
+	margin: 20px auto;
+	background-color: rgba(250, 61, 255, 0.23);
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
 
 }
 
 .tools, .mainInfo, .secondaryInfo {
 	display: flex;
-	background-color: lightblue;
+	/*background-color: lightblue;*/
 	margin: 10px;
 	justify-content: space-between;
 }
@@ -35,7 +36,7 @@ div {
 }
 
 .searchbar, .tempSettings, .windSettings {
-	background-color: azure;
+	/*background-color: azure;*/
 	margin: 10px;
 }
 
@@ -54,7 +55,7 @@ div {
 
 
 .currentTemp, .location, .currentIcon, .metaInfo{
-	background-color: azure;
+	/*background-color: azure;*/
 	margin: 10px;
 }
 
@@ -77,7 +78,7 @@ div {
 }
 
 [data-accordion-group] {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -101,22 +102,24 @@ div {
     background-size: contain;
 }*/
 
-.shortForecast, {
+.shortForecast {
 	display: flex;
 	flex-direction: column;
-	max-width: 700px;
+	max-width: 600px;
 	margin: 0 auto;
-	background-color: cadetblue;
+	padding: 10px 0!important;
+	/*background-color: cadetblue;*/
 }
 
 .shortlist {
 	display: flex;
-	background-color: peru;
-	margin: 10px;
+	justify-content: space-around;
+	background-color: rgba(44, 199, 255, 0.23);
+	/*margin: 10px;*/
 }
 
 .labels, .shortInstance, .longInstance {
-	background-color: lightgreen;
+	/*background-color: lightgreen;*/
 	margin: 5px;
 }
 
@@ -124,15 +127,31 @@ div {
 	font-size: 0.8rem;
 }
 
+ .shortInstance>p, .longInstance>p {
+	text-align: center;
+}
+
+.shortInstance>.time, .longInstance>.time {
+	font-weight: bold;
+}
+
 .labels {
-	padding-top: 39px;
+	padding-top: 30px;
+	border-right: solid #666 1px;
+    padding-right: 8px;
+}
+
+.labels>p {
+    margin-bottom: 15px;
 }
 
 .longForecast {
 	display: flex;
-	max-width: 700px;
-	margin: 0 auto;
-	background-color: cadetblue;
+	justify-content: space-around;
+	max-width: 600px;
+	margin: 10px auto;
+	padding: 0!important;
+	background-color: rgba(44, 199, 255, 0.23);
 }
 
 
@@ -141,6 +160,7 @@ div {
 }
 .currentIcon > i {
 	font-size: 4rem;
+	margin-top: 15%;
 }
 
 .metaInfo i {
@@ -148,7 +168,7 @@ div {
 }
 
 .shortInstance i, .longInstance i {
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 }
 
 /*====================================
@@ -163,13 +183,13 @@ label>p {
 
 .toggle_radio{
   position: relative;
-  background: salmon;
-  margin: 0 auto;
+  background: rgba(251, 112, 112, 0.36);
+  /*margin: 0 auto;
   overflow: hidden;
-  padding: 0 !important;
-  position: relative;
-  height: 26px;
+  padding: 0 !important;*/
+  height: 30px;
   width: 125px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
 }
 .toggle_radio > * {
   float: left;
@@ -182,15 +202,15 @@ label>p {
   /*z-index: 0;*/
   display: block;
   width: 35px;
-  height: 20px;
-  margin: 3px 3px;
+  height: 18px;
+  margin: 6px 3px;
   cursor: pointer;
   /*z-index: 1;*/
   text-align: center;
 }
 .toggle_option_slider{
   width: 35px;
-  height: 20px;
+  height: 24px;
   position: absolute;
   top: 3px;
   -webkit-transition: all .4s cubic-bezier(0.81, -0.36, 0.29, 1.28);
