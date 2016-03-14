@@ -40,6 +40,7 @@ div {
 }
 
 .searchbar {
+	position: relative;
 	flex-grow: 1;
 	/*max-width: 200px;*/
 
@@ -135,6 +136,21 @@ div {
 }
 
 
+.currentIcon {
+	text-align: center;
+}
+.currentIcon > i {
+	font-size: 4rem;
+}
+
+.metaInfo i {
+	font-size: 2rem;
+}
+
+.shortInstance i, .longInstance i {
+	font-size: 1.4rem;
+}
+
 /*====================================
   ==============OPTIONS===============
   ====================================
@@ -219,11 +235,48 @@ label>p {
 
 
 
+/*.cross:after {
+	display: none;
+	position: absolute;
+	top: 10%;
+	right: 4px;
+	width: 10px;
+	height: 10px;
+	color: #444;
+	content: '❌';
+}
+*/
 
 
+/*.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+	outline: 0;
+	cursor: pointer;
+	float: left;
+}
 
-/*.tp-ac__input {
-	padding: 0;
-	font-weight: normal;
-	font-size: 1rem;
+.close-icon:after {
+	content: "❌";
+	display: block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	z-index:1;
+	right: 4px;
+	top: 10%;
+	text-align: center;
+	color: #444;
+	cursor: pointer;
+}
+
+.tp-autocomplete {
+	float: left;
+	width: 100%;
+}
+
+.tp-autocomlete:not(:valid) ~ .close-icon {
+	display: none;
 }*/

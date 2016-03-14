@@ -15,18 +15,18 @@ var fetcher;
 var fetcherMaker;
 var storageFlag;
 var searchResult = {};
-// var icons = {
-// 	"clear-day":,
-// 	"clear-night":,
-// 	"rain":,
-// 	"snow":,
-// 	"sleet":,
-// 	"wind":,
-// 	"fog":,
-// 	"cloudy":,
-// 	"partly-cloudy-day":,
-// 	"partly-cloudy-night":
-// }
+// var icon = [
+// 	clear-day =🌣{"<i class=wi wi-day-sunny></i>"},
+// 	clear-night:🌛'<i class="wi wi-night-clear"></i>',
+// 	rain:🌧'<i class="wi wi-rain"></i>',
+// 	snow:🌨'<i class="wi wi-snow"></i>',
+// 	sleet: '<i class="wi wi-sleet"></i>',
+// 	wind: '<i class="wi wi-strong-wind"></i>',
+// 	fog: '<i class="wi wi-fog"></i>',
+// 	cloudy: '<i class="wi wi-cloudy"></i>',
+// 	partly-cloudy-day: '<i class="wi wi-day-cloudy"></i>',
+// 	partly-cloudy-night: '<i class="wi wi-night-alt-cloudy"></i>'
+// ]
 
 
 
@@ -294,31 +294,31 @@ fetcherMaker = function (weatherdata) {
 
 		switch (true) {
 		case direction < 11.25:
-			wDirection = "N";
+			wDirection = '<i class="wi wi-direction-down"></i>'; //"N";
 			break;
 		case (direction >= 11.25 && direction < 56.25):
-			wDirection = "NE";
+			wDirection = '<i class="wi wi-direction-down-left"></i>'; //"NE";
 			break;
 		case (direction >= 56.25 && direction < 101.25):
-			wDirection = "E";
+			wDirection = '<i class="wi wi-direction-left"></i>'; //"E";
 			break;
 		case (direction >= 101.25 && direction < 146.25):
-			wDirection = "SE";
+			wDirection = '<i class="wi wi-direction-up-left"></i>'; //"SE";
 			break;
 		case (direction >= 146.25 && direction < 191.25):
-			wDirection = "S";
+			wDirection = '<i class="wi wi-direction-up"></i>'; //"S";
 			break;
 		case (direction >= 191.25 && direction < 236.25):
-			wDirection = "SW";
+			wDirection = '<i class="wi wi-direction-up-right"></i>'; //"SW";
 			break;
 		case (direction >= 236.25 && direction < 281.25):
-			wDirection = "W";
+			wDirection = '<i class="wi wi-direction-right"></i>'; //"W";
 			break;
 		case (direction >= 281.25 && direction < 326.25):
-			wDirection = "NW";
+			wDirection = '<i class="wi wi-direction-down-right"></i>'; //"NW";
 			break;
 		case direction >= 326.25:
-			wDirection = "N";
+			wDirection = '<i class="wi wi-direction-down"></i>'; //"N";
 			break;
 		}
 		return wDirection
@@ -337,6 +337,66 @@ fetcherMaker = function (weatherdata) {
 			return timestmp.getDate() + "/" + (timestmp.getMonth()+1)
 		}
 	}
+
+	function getIcon (timeRange, dataInstance) {
+		var icon, symbol;
+		if (timeRange === "currently") {
+			icon = weatherdata.currently.icon
+		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
+			icon = weatherdata[timeRange].data[dataInstance].icon
+		}
+
+		switch (true) {
+		case (icon === 'clear-day'):
+			symbol = '<i class="wi wi-day-sunny"></i>';
+			break;
+		case (icon === 'clear-night'):
+			symbol = '<i class="wi wi-night-clear"></i>';
+			break;
+		case (icon === 'rain'):
+			symbol = '<i class="wi wi-rain"></i>';
+			break;
+		case (icon === 'snow'):
+			symbol = '<i class="wi wi-snow"></i>';
+			break;
+		case (icon === 'sleet'):
+			symbol = '<i class="wi wi-sleet"></i>';
+			break;
+		case (icon === 'wind'):
+			symbol = '<i class="wi wi-strong-wind"></i>';
+			break;
+		case (icon === 'fog'):
+			symbol = '<i class="wi wi-fog"></i>';
+			break;
+		case (icon === 'cloudy'):
+			symbol = '<i class="wi wi-cloudy"></i>';
+			break;
+		case (icon === 'partly-cloudy-day'):
+			symbol = '<i class="wi wi-day-cloudy"></i>';
+			break;
+		case (icon === 'partly-cloudy-night'):
+			symbol = '<i class="wi wi-night-alt-cloudy"></i>';
+			break;
+		}
+		return symbol
+	}
+
+	function getProbability(timeRange, dataInstance) {
+		var probability;
+		if ((timeRange === "hourly") || (timeRange === "daily")) {
+			probability = Math.round(weatherdata[timeRange].data[dataInstance].precipProbability * 100)
+		}
+
+		// if (probability === 0) {
+		// 	probability = '-';
+		// 	return probability;
+
+		// }
+
+		return probability+"%"
+	}
+
+
 	console.log('Inside fetcherMaker');
 	console.log(weatherdata);
 	return {
@@ -345,7 +405,9 @@ fetcherMaker = function (weatherdata) {
 		fetchHumidity: getHumidity,
 		fetchWindSpeed: getWindSpeed,
 		fetchWindDirection: getWindDirection,
-		fetchTimepoint: getTimepoint
+		fetchTimepoint: getTimepoint,
+		fetchIcon: getIcon,
+		fetchProbability: getProbability
 	}
 }
 
@@ -375,13 +437,13 @@ function showCurrentWeather() {
 		+ "<br>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name) + "</p>");
 	//console.log((geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].full_name));
 
-	$(".currentIcon").append(responds.currently.summary);
+	$(".currentIcon").html(fetcher.fetchIcon('currently'));
 
 	$(".metaInfo").append(
 		"<p>Humidity: " + fetcher.fetchHumidity('currently')
 		+ "<br>Cloudiness: " + fetcher.fetchCloudCover('currently')
 		+ "<br>Wind: " + fetcher.fetchWindSpeed('currently', windUnit) + " " + windUnit
-		+ " (" + fetcher.fetchWindDirection('currently') + ")"
+		+ " " + fetcher.fetchWindDirection('currently')
 		+ "</p>");
 
 	$(".dayBrief").append(responds.hourly.summary);
@@ -398,17 +460,16 @@ function showCurrentWeather() {
 */
 
 function showShortForecast () {
-	// isCelsius = localStorage.isCelsius || isCelsius;
-	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".shortInstance").each(function (index) {
 		$(this).append("<p>" + fetcher.fetchTimepoint('hourly', index+1) + ':00' + "</p>")
 			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, false, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('hourly', isCelsius, true, index+1) + "</p>")
-			.append("<p>~icon~</p>")
+			.append(fetcher.fetchIcon('hourly', index+1))
 			.append("<p>" + fetcher.fetchCloudCover('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchHumidity('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindSpeed('hourly', windUnit, index+1) + "</p>")
-			.append("<p>" + fetcher.fetchWindDirection('hourly', index+1) + "</p>");
+			.append("<p>" + fetcher.fetchWindDirection('hourly', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchProbability('hourly', index+1) + "</p>");
 	});
 	$(".windUnit").text("Wind, " + windUnit)
 }
@@ -421,11 +482,12 @@ function showLongForecast () {
 		$(this).append("<p>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, true, index+1) + "</p>")
-			.append("<p>~icon~</p>")
+			.append(fetcher.fetchIcon('daily', index+1))
 			.append("<p>" + fetcher.fetchCloudCover('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchHumidity('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchWindSpeed('daily', windUnit, index+1) + "</p>")
-			.append("<p>" + fetcher.fetchWindDirection('daily', index+1) + "</p>");
+			.append("<p>" + fetcher.fetchWindDirection('daily', index+1) + "</p>")
+			.append("<p>" + fetcher.fetchProbability('daily', index+1) + "</p>");
 	});
 	$(".windUnit").text("Wind, " + windUnit)
 }
@@ -514,7 +576,28 @@ $(document).ready(function () {
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
         searchResult = value;
         reverseGeo();
+        // $('.searchbar:after').css('display', 'inline-block');
       });
+
+	// $('.my-input').on('focus', function () {
+	// 	$('.searchbar').addClass('cross');
+	// })
+
+	// $('.my-input').on('blur', function () {
+	// 	$('.searchbar').removeClass('cross');
+	// 	$(this).val([]);
+	// 	$('tp-ac__list').css('display', 'none');
+	// })
+
+	//$('.close-icon').on('click', function () {
+		// $('.my-input').val('');
+		// var press = jQuery.Event("keydown");
+		// press.ctrlKey = false;
+		// press.which = 8;
+		// $(".my-input").val(press);
+	//})
+
+
 //ask user and get current coordinates from browser
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');
@@ -547,6 +630,7 @@ $(document).ready(function () {
 
 //wind speed value toggler
 	$(".toggle_radio").on('click', function () {
+		$('.my-input').val("");
 		if ($("#first_toggle").prop("checked")) {
 			windUnit = 'm/s';
 			localStorage.windUnit = 'm/s'
@@ -572,6 +656,7 @@ $(document).ready(function () {
 /*
 Reverse geocoding:
 https://api.opencagedata.com/geocode/v1/json?q=47.959123999999996+37.7931349&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e
+https://api.teleport.org/api/locations/50.315796,30.300249/?embed=location%3Anearest-cities%2Flocation%3Anearest-city
 
 1 - https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
 2- https://maps.googleapis.com/maps/api/geocode/json?latlng=47.958162099999996,37.7931768&key=AIzaSyAwdgGurtsTzr0te968d4nK2quXtTiBFSM
@@ -591,5 +676,7 @@ http://jqueryui.com/autocomplete/#remote-jsonp
 
 accordion: http://vctrfrnndz.github.io/jquery-accordion/
 
+
+icons: https://erikflowers.github.io/weather-icons/
 
 */
