@@ -5,7 +5,7 @@
 }
 
 body {
-	background-color: rgba(241, 243, 109, 0.53);
+	background-color: #F7F8B1;
 }
 
 .currentInfo {
@@ -13,7 +13,8 @@ body {
 	flex-direction: column;
 	max-width: 550px;
 	margin: 20px auto;
-	background-color: rgba(250, 61, 255, 0.23);
+	/*background-color: rgba(250, 61, 255, 0.23);*/
+	background-color: #FFB9DF;
 	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
 }
 
@@ -116,7 +117,8 @@ body {
 .shortlist {
 	display: flex;
 	justify-content: space-around;
-	background-color: rgba(44, 199, 255, 0.23);
+	/*background-color: rgba(44, 199, 255, 0.23);*/
+	background-color: #C4F5C3;
 	/*margin: 10px;*/
 }
 
@@ -154,7 +156,8 @@ body {
 	margin: 10px auto;
 	padding: 0!important;
 	border-bottom: 0!important;
-	background-color: rgba(44, 199, 255, 0.23);
+	/*background-color: rgba(44, 199, 255, 0.23);*/
+	background-color: #C4F5C3;
 }
 
 
@@ -183,7 +186,8 @@ label>p {
 
 .toggle_radio{
   position: relative;
-  background: rgba(251, 112, 112, 0.36);
+  /*background: rgba(251, 112, 112, 0.36);*/
+  background-color: #F785C3;
   /*margin: 0 auto;
   overflow: hidden;
   padding: 0 !important;*/
