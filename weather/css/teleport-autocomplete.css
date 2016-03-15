@@ -50,7 +50,7 @@
   }
 
 .tp-ac__item {
-  font-size: 1rem;
+  font-size: 0.9rem;
   overflow: hidden;
   padding: 0 0.2em;
   cursor: pointer;
@@ -68,6 +68,7 @@
     cursor: default;
     background-color: #fff; }
   .tp-ac__item span {
+    font-size: 0.9rem;
     color: #282828;
     /*font-weight: bold;*/
      }
