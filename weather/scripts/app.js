@@ -51,6 +51,8 @@ var getCoordinates = (function () {
 			throw "The request to get user location timed out.";
 		case error.UNKNOWN_ERROR:
 			throw "An unknown error occurred.";
+		default:
+			throw "Unknown error";
 		}
 	}
 
@@ -64,6 +66,7 @@ var getCoordinates = (function () {
 	function _onError(callback, error) {
 		callback();
 		showError(error);
+
 	}
 
 	function _getLocation(callback) {
@@ -418,24 +421,23 @@ fetcherMaker = function (weatherdata) {
 */
 
 function showCurrentWeather() {
+	var city = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name;
+	var adminLevel = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name
+	var country = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name
 	console.log("Inside showCurrentWeather: ");
 	console.log(responds);
 	console.log(fetcher);
 	console.log('isCelsius: ' + isCelsius);
-	// isCelsius = localStorage.isCelsius || isCelsius;
+	console.log(geoRespond);
 
 	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + "</span>")
 		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + "</p>");
 
-	// $(".location").append(
-	// 		"<p>" + (geoRespond.results[0].components.city
-	// 		|| (geoRespond.results[0].components.town + "<br>" + geoRespond.results[0].components.state))
-	// 		 + "<br>" + geoRespond.results[0].components.country + "</p>");
-	console.log(geoRespond);
-	$(".location").append("<p>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name)
-		+ "<br>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name)
-		+ "<br>" + (geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name) + "</p>");
-	//console.log((geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].full_name));
+	if (adminLevel.indexOf(city) === -1) {
+		$(".location").append("<p>" + city + "<br>" + adminLevel + "<br>" + country + "</p>");
+	} else {
+		$(".location").append("<p>" + city + "<br>" + country + "</p>");
+	}
 
 	$(".currentIcon").html(fetcher.fetchIcon('currently'));
 
@@ -570,7 +572,6 @@ function togglesInitialState() {
   =========================================================*/
 
 
-
 $(document).ready(function () {
 	togglesInitialState();
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
@@ -601,6 +602,8 @@ $(document).ready(function () {
 //ask user and get current coordinates from browser
 	getCoordinates.location(function () {
 		console.log('Main, after getCoordinates');
+		// $('.overlay').css('display', 'none');
+
 	});
 
 //make accordion for forecasts
