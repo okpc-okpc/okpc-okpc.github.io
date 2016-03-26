@@ -6,6 +6,7 @@ var geoRespond;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
 var isCelsius;
 var windUnit;
+
 // var wUnits = {
 // 	metrical: ["°C", " m/s"],
 // 	imperial: ["°F", " mph"]
@@ -202,20 +203,20 @@ fetcherMaker = function (weatherdata) {
 		}
 
 		if (isCelsius === true) {
-			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8)) + "°C";
+			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8));
 			// console.log('BLIP!!!!');
-			temp = tempSign(Math.round((temp - 32) / 1.8)) + "°C";
+			temp = tempSign(Math.round((temp - 32) / 1.8));
 			tempMax = tempSign(Math.round((tempMax - 32) / 1.8));
 			tempMin = tempSign(Math.round((tempMin - 32) / 1.8));
 
-			tempDaily = tempMin + ".." + tempMax + "°C";
+			tempDaily = tempMin + ".." + tempMax;
 		} else if (isCelsius === false) {
-			tempCurr = Math.round(tempCurr) + "°F";
+			tempCurr = Math.round(tempCurr);
 			// console.log('BLOP!!!!');
-			temp = Math.round(temp) + "°F";
+			temp = Math.round(temp);
 			tempMax = Math.round(tempMax);
 			tempMin = Math.round(tempMin);
-			tempDaily = tempMin + ".." + tempMax + "°F";
+			tempDaily = tempMin + ".." + tempMax;
 		}
 
 		if (timeRange === "currently") {
@@ -421,6 +422,7 @@ fetcherMaker = function (weatherdata) {
 */
 
 function showCurrentWeather() {
+	var tempValue;
 	var city = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name;
 	var adminLevel = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name
 	var country = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name
@@ -430,8 +432,14 @@ function showCurrentWeather() {
 	console.log('isCelsius: ' + isCelsius);
 	console.log(geoRespond);
 
-	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + "</span>")
-		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + "</p>");
+	if (isCelsius === true) {
+		tempValue = "°C";
+	} else {
+		tempValue = "°F";
+	}
+
+	$(".currentTemp").append("<span class='currTemp'>" + fetcher.fetchTemp('currently', isCelsius, false) + tempValue + "</span>")
+		.append("<p>feels like " + fetcher.fetchTemp('currently', isCelsius, true) + tempValue + "</p>");
 
 	if (adminLevel.indexOf(city) === -1) {
 		$(".location").append("<p>" + city + "<br>" + adminLevel + "<br>" + country + "</p>");
@@ -442,8 +450,8 @@ function showCurrentWeather() {
 	$(".currentIcon").html(fetcher.fetchIcon('currently'));
 
 	$(".metaInfo").append(
-		"<p>Humidity: " + fetcher.fetchHumidity('currently')
-		+ "<br>Cloudiness: " + fetcher.fetchCloudCover('currently')
+		"<p>Cloudiness: " + fetcher.fetchCloudCover('currently')
+		+ "<br>Humidity: " + fetcher.fetchHumidity('currently')
 		+ "<br>Wind: " + fetcher.fetchWindSpeed('currently', windUnit) + " " + windUnit
 		+ " " + fetcher.fetchWindDirection('currently')
 		+ "</p>");
@@ -473,7 +481,12 @@ function showShortForecast () {
 			.append("<p>" + fetcher.fetchWindDirection('hourly', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchProbability('hourly', index+1) + "</p>");
 	});
-	$(".windUnit").text("Wind, " + windUnit)
+	$(".windUnit").text("Wind, " + windUnit);
+	if (isCelsius === true) {
+		$(".tempUnit").text("Temp, °C");
+	} else {
+		$(".tempUnit").text("Temp, °F");
+	}
 }
 
 
@@ -492,6 +505,11 @@ function showLongForecast () {
 			.append("<p>" + fetcher.fetchProbability('daily', index+1) + "</p>");
 	});
 	$(".windUnit").text("Wind, " + windUnit)
+	if (isCelsius === true) {
+		$(".tempUnit").text("Temp, °C");
+	} else {
+		$(".tempUnit").text("Temp, °F");
+	}
 }
 
 

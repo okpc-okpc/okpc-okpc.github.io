@@ -1,13 +1,14 @@
 * {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 1.1rem;
 	line-height: 1.3;
 	color: #313131;
 }
 
 body {
-	background-color: #F7F8B1;
+	background-color: #79B9AA;
+	font-size: 110%;
 }
+
 
 .currentInfo {
 	display: flex;
@@ -16,8 +17,8 @@ body {
 	height: 427px;
 	margin: 20px auto;
 	/*background-color: rgba(250, 61, 255, 0.23);*/
-	background-color: #FFB9DF;
-	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
+	background-color: #F1AFB9;
+	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .secondaryInfo {
@@ -53,7 +54,7 @@ body {
 
 .currTemp {
 	font-family: 'Work Sans', sans-serif;
-	font-size: 6rem;
+	font-size: 6.5rem;
 	font-weight: 200;
 }
 
@@ -62,7 +63,7 @@ body {
 }
 
 .location p {
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 }
 
 
@@ -73,6 +74,14 @@ body {
 .metaInfo .wi:before {
 	position: relative;
 	top: 7px;
+}
+
+.metaInfo>p, .currentTemp>p {
+	font-size: 1.2rem;
+}
+
+.currentTemp {
+	margin-right: 5px;
 }
 
 /*.searchbar, .tempSettings, .windSettings {
@@ -103,7 +112,7 @@ body {
 }
 
 [data-control] {
-	font-size: 0.9rem;
+	font-size: 1rem;
 }
 
 [data-content] {
@@ -111,8 +120,9 @@ body {
 }
 
 .dayBrief, .weekBrief {
-	margin-left: 15px;
+	margin: 5px 0 0 15px;
 	display: inline-block;
+	font-size: 1.2rem;
 }
 
 
@@ -130,7 +140,7 @@ body {
 	justify-content: space-between;
 	padding: 0 10px;
 	/*background-color: rgba(44, 199, 255, 0.23);*/
-	background-color: #C4F5C3;
+	background-color: #EFD9B5;
 	/*margin: 10px;*/
 }
 
@@ -140,7 +150,7 @@ body {
 }
 
 .labels>p, .shortInstance>p, .longInstance>p {
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 }
 
  .shortInstance>p, .longInstance>p {
@@ -169,12 +179,12 @@ body {
 	padding: 0!important;
 	border-bottom: 0!important;
 	/*background-color: rgba(44, 199, 255, 0.23);*/
-	background-color: #C4F5C3;
+	background-color: #EFD9B5;
 }
 
 
 .currentIcon > i {
-	font-size: 4rem;
+	font-size: 4.5rem;
 	/*margin-top: 15%;*/
 }
 
@@ -193,19 +203,19 @@ body {
 
 label>p {
 	margin: 0;
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 }
 
 .toggle_radio{
   position: relative;
   /*background: rgba(251, 112, 112, 0.36);*/
-  background-color: #F785C3;
+  background-color: #EA8998;
   /*margin: 0 auto;
   overflow: hidden;
   padding: 0 !important;*/
   height: 30px;
   width: 125px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 .toggle_radio > * {
   float: left;
@@ -266,6 +276,10 @@ label>p {
 
 #toggleTemp label {
 	width: 32px;
+}
+
+input {
+	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 /*.message {
