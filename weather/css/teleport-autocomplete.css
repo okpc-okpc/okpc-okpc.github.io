@@ -11,7 +11,7 @@
   border-radius: 0;
   background-color: #F5EDED;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
-  font-size: 1.1rem;
+  font-size: 1rem;
   /*font-weight: bold;*/
   -webkit-appearance: none;
   text-overflow: ellipsis; }
@@ -46,12 +46,12 @@
   color: #797979;
   background-color: #fff;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
-  font-size: 1.1rem;
+  font-size: 1rem;
   }
 
 .tp-ac__item {
   color: #aaa;
-  font-size: 1.1rem;
+  font-size: 1rem;
   overflow: hidden;
   padding: 0 0.2em;
   cursor: pointer;
@@ -69,7 +69,7 @@
     cursor: default;
     background-color: #fff; }
   .tp-ac__item span {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #282828;
     /*font-weight: bold;*/
      }
