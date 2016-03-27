@@ -75,12 +75,12 @@ html {
 
 
 .metaInfo i {
-	margin-top: -11px;
+	margin-top: -0.7rem;
 }
 
 .metaInfo .wi:before {
 	position: relative;
-	top: 7px;
+	top: 0.4rem;
 }
 
 .metaInfo>p, .currentTemp>p {
@@ -196,7 +196,7 @@ html {
 }
 
 .metaInfo i {
-	font-size: 2rem;
+	font-size: 1.8rem;
 }
 
 .shortInstance i, .longInstance i {
@@ -372,24 +372,60 @@ eft: -150px;
 
 @media (max-width: 650px) {
 	html {
-		font-size: 90%;
+		font-size: 95%;
 	}
 }
 
 @media (max-width: 550px) {
 	html {
+		font-size: 90%;
+	}
+}
+
+@media (max-width: 530px) {
+	html {
+		font-size: 85%;
+	}
+}
+
+@media (max-width: 490px) {
+	html {
+		font-size: 80%;
+	}
+}
+
+@media (max-width: 470px) {
+	html {
+		font-size: 75%;
+	}
+}
+
+@media (max-width: 440px) {
+	html {
 		font-size: 70%;
 	}
 }
 
-@media (max-width: 420px) {
+@media (max-width: 410px) {
+	html {
+		font-size: 65%;
+	}
+}
+
+@media (max-width: 380px) {
 	html {
 		font-size: 60%;
 	}
 }
 
-@media (max-width: 360px) {
+@media (max-width: 355px) {
 	html {
-		font-size: 50%;
+		font-size: 57%;
+	}
+}
+
+@media (max-width: 335px) {
+	html {
+		font-size: 53%;
 	}
 }
