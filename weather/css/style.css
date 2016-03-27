@@ -257,26 +257,26 @@ label>p {
 }
 
 #first_toggle:checked ~ .toggle_option_slider{
-  background: rgba(240,255,255, .75);
+  background: rgba(240,255,255, .6);
   left: 2%;
 }
 #second_toggle:checked ~ .toggle_option_slider{
-  background: rgba(240,255,255, .75);
+  background: rgba(240,255,255, .6);
   left: 34%;
 }
 #third_toggle:checked ~ .toggle_option_slider{
-  background: rgba(240,255,255, .75);
+  background: rgba(240,255,255, .6);
   left: 65%;
 }
 
 
 
 #first_toggle-2:checked ~ .toggle_option_slider{
-  background: rgba(240,255,255, .75);
+  background: rgba(240,255,255, .6);
   left: 4%;
 }
 #second_toggle-2:checked ~ .toggle_option_slider{
-  background: rgba(240,255,255, .75);
+  background: rgba(240,255,255, .6);
   left: 50%;
 }
 
@@ -431,12 +431,6 @@ eft: -150px;
 }
 
 @media (max-width: 355px) {
-	html {
-		font-size: 57%;
-	}
-}
-
-@media (max-width: 335px) {
 	html {
 		font-size: 53%;
 	}
