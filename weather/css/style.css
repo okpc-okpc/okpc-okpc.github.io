@@ -372,6 +372,18 @@ eft: -150px;
 
 @media (max-width: 650px) {
 	html {
+		font-size: 105%;
+	}
+}
+
+@media (max-width: 610px) {
+	html {
+		font-size: 100%;
+	}
+}
+
+@media (max-width: 580px) {
+	html {
 		font-size: 95%;
 	}
 }
@@ -427,5 +439,17 @@ eft: -150px;
 @media (max-width: 335px) {
 	html {
 		font-size: 53%;
+	}
+}
+
+@media (max-width: 315px) {
+	html {
+		font-size: 50%;
+	}
+}
+
+@media (max-width: 295px) {
+	html {
+		font-size: 47%;
 	}
 }
