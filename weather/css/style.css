@@ -252,7 +252,7 @@ label>p {
   display: inline-block;
 /*  width: 35px;
   height: 18px;*/
-  margin: 5% 2% 5% 6%;
+  margin: 5% 2% 0 6%;
   cursor: pointer;
   /*z-index: 1;*/
   /*text-align: center;*/
@@ -303,7 +303,7 @@ label>p {
 
 #toggleTemp label {
 	/*width: 32px;*/
-	margin: 10% 12%;
+	margin: 10% 12% 0 12%;
 }
 
 input {
@@ -434,11 +434,11 @@ input {
 	}
 
 	.toggle_radio label {
-		margin: 5% 1% 5% 4%;
+		margin: 5% 1% 0 4%;
 	}
 
 	#toggleTemp label {
-		margin: 10% 8%;
+		margin: 10% 8% 0 8%;
 	}
 }
 
