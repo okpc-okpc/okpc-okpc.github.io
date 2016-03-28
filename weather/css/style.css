@@ -17,7 +17,7 @@ html {
 	flex-direction: column;
 	max-width: 32rem;
 	height: 24rem;
-	margin: 20px auto;
+	margin: 1.2rem auto;
 	/*background-color: rgba(250, 61, 255, .23);*/
 	background-color: #F1AFB9;
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
@@ -30,7 +30,7 @@ html {
 .tools, .mainInfo, .secondaryInfo {
 	/*background-color: lightblue;*/
 	display: flex;
-	margin: 20px 0;
+	margin: 1.2rem 0;
 	justify-content: space-around;
 }
 
@@ -105,7 +105,7 @@ html {
 }
 
 .currentTemp {
-	margin-right: 5px;
+	margin-right: .3rem;
 }
 
 /*.searchbar, .tempSettings, .windSettings {
@@ -144,7 +144,7 @@ html {
 }
 
 .dayBrief, .weekBrief {
-	margin: 5px 0 0 15px;
+	margin: .5rem 0 0 1rem;
 	display: inline-block;
 	font-size: 1.1rem;
 }
@@ -155,14 +155,14 @@ html {
 	flex-direction: column;
 	/*max-width: 600px;*/
 	margin: 0 auto;
-	padding: 10px 0!important;
+	padding: .8rem 0!important;
 	/*background-color: cadetblue;*/
 }
 
 .shortlist {
 	display: flex;
 	justify-content: space-between;
-	padding: 0 10px;
+	padding: 0 .8rem;
 	/*background-color: rgba(44, 199, 255, 0.23);*/
 	background-color: #EFD9B5;
 	/*margin: 10px;*/
@@ -199,7 +199,7 @@ html {
 	display: flex;
 	justify-content: space-around;
 	/*max-width: 600px;*/
-	margin: 10px auto;
+	margin: .8rem auto;
 	padding: 0!important;
 	border-bottom: 0!important;
 	/*background-color: rgba(44, 199, 255, 0.23);*/
@@ -322,7 +322,7 @@ input {
     margin-top: -8rem;
     margin-left: -14rem;
     background-color: #F6F395;
-    border-radius: 5px;
+    border-radius: .2rem;
     text-align: center;
     z-index: 11;
 }
@@ -431,6 +431,14 @@ input {
 @media (max-width: 490px) {
 	html {
 		font-size: 80%;
+	}
+
+	.toggle_radio label {
+		margin: 5% 1% 5% 4%;
+	}
+
+	#toggleTemp label {
+		margin: 10% 8%;
 	}
 }
 
