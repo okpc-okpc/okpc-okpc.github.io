@@ -70,7 +70,7 @@
     cursor: default;
     background-color: #fff; }
   .tp-ac__item span {
-    font-size: 1rem;
+    /*font-size: 1rem;*/
     color: #282828;
     /*font-weight: bold;*/
      }
@@ -103,3 +103,15 @@
 /*# sourceMappingURL=teleport-autocomplete.css.map */
 
 
+@media (max-width: 490px) {
+
+  .tp-ac__list {
+    width: 110%;
+  }
+
+  .tp-ac__item {
+    color: #7F7E7E;
+    font-size: 1.5rem;
+    line-height: 1.7;
+  }
+}

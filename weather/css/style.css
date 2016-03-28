@@ -18,7 +18,7 @@ html {
 	max-width: 32rem;
 	height: 24rem;
 	margin: 20px auto;
-	/*background-color: rgba(250, 61, 255, 0.23);*/
+	/*background-color: rgba(250, 61, 255, .23);*/
 	background-color: #F1AFB9;
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -36,7 +36,7 @@ html {
 
 .tools {
 	/*margin: 15px;*/
-	margin: 1rem;
+	margin: 1rem .5rem 0 .5rem;
 }
 
 .searchbar {
@@ -52,6 +52,23 @@ html {
 
 .windSettings, .tempSettings {
 	flex-grow: 1;
+}
+
+.info {
+    position: relative;
+    background-color: #43252A;
+    height: 1.8rem;
+    width: 1.8rem;
+    text-align: center;
+    margin-left: .8rem;
+    cursor: pointer;
+    box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.info>p {
+    margin: 0;
+    padding-top: 14%;
+	color: #EA8998;
 }
 
 .currentTemp, .currentIcon {
@@ -80,7 +97,7 @@ html {
 
 .metaInfo .wi:before {
 	position: relative;
-	top: 0.4rem;
+	top: .4rem;
 }
 
 .metaInfo>p, .currentTemp>p {
@@ -119,7 +136,7 @@ html {
 }
 
 [data-control] {
-	font-size: 0.9rem;
+	font-size: .9rem;
 }
 
 [data-content] {
@@ -153,11 +170,11 @@ html {
 
 .labels, .shortInstance, .longInstance {
 	/*background-color: lightgreen;*/
-	margin: 5px;
+	margin: .5rem 0;
 }
 
 .labels>p, .shortInstance>p, .longInstance>p {
-	font-size: 0.8rem;
+	font-size: .8rem;
 }
 
  .shortInstance>p, .longInstance>p {
@@ -171,7 +188,7 @@ html {
 .labels {
 	padding-top: 2rem;
 	border-right: solid #666 1px;
-    padding-right: 0.5rem;
+    padding-right: .5rem;
 }
 
 /*.labels>p {
@@ -210,20 +227,20 @@ html {
 
 label>p {
 	margin: 0;
-	font-size: 0.8rem;
+	font-size: .8rem;
 }
 
 .toggle_radio{
   position: relative;
-  text-align: center;
-  /*background: rgba(251, 112, 112, 0.36);*/
   background-color: #EA8998;
+  height: 1.8rem;
+  box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   /*margin: 0 auto;
   overflow: hidden;
-  padding: 0 !important;*/
-  height: 1.8rem;
-  /*width: 125px;*/
-  box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 0 !important;
+  text-align: center;
+  background: rgba(251, 112, 112, .36);
+  width: 125px;*/
 }
 /*.toggle_radio > * {
   float: left;
@@ -235,10 +252,10 @@ label>p {
   display: inline-block;
 /*  width: 35px;
   height: 18px;*/
-  margin: 4%;
+  margin: 5% 2% 5% 6%;
   cursor: pointer;
   /*z-index: 1;*/
-  text-align: center;
+  /*text-align: center;*/
 }
 .toggle_option_slider{
   width: 32%;
@@ -286,54 +303,64 @@ label>p {
 
 #toggleTemp label {
 	/*width: 32px;*/
-	margin: 9% 13%;
+	margin: 10% 12%;
 }
 
 input {
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-/*.message {
-    width: 300px;
-    height: 200px;
-    line-height: 200px;
+
+
+.message {
+    width: 28rem;
+    height: 16rem;
+    /*line-height: 200px;*/
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
-    margin-l.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-  background-color: rgba(0,0,0,0.75);
-}
-
-eft: -150px;
-    background-color: #f1c40f;
+    margin-top: -8rem;
+    margin-left: -14rem;
+    background-color: #F6F395;
     border-radius: 5px;
     text-align: center;
     z-index: 11;
 }
 
-.message>p {
-	margin-top: 20%;
+.message>ul {
+    text-align: left;
 }
 
-*/
-/*.cross:after {
-	display: none;
+.message li {
+	line-height: 1.5;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,.75);
+}
+
+.cross {
 	position: absolute;
-	top: 10%;
-	right: 4px;
-	width: 10px;
-	height: 10px;
+	top: 3%;
+	right: 2%;
+}
+.cross:before {
 	color: #444;
 	content: '❌';
+	font-size: 1.5rem;
 }
-*/
+
+.cross:hover {
+	cursor: pointer;
+}
+
 
 
 /*.close-icon {
@@ -368,6 +395,7 @@ eft: -150px;
 .tp-autocomlete:not(:valid) ~ .close-icon {
 	display: none;
 }*/
+
 
 
 @media (max-width: 650px) {

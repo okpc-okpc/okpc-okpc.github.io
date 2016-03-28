@@ -668,8 +668,16 @@ $(document).ready(function () {
 		showCurrentWeather();
 		showShortForecast();
 		showLongForecast();
+
 	});
 
+	$(".cross").on("click", function() {
+		$(".overlay").css("display", "none")
+	})
+
+	$(".info").on("click", function() {
+		$(".overlay").css("display", "block")
+	})
 });
 
 
