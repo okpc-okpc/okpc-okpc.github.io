@@ -440,6 +440,23 @@ input {
 	#toggleTemp label {
 		margin: 13% 8% 0 8%;
 	}
+
+	[data-control] {
+		font-size: 1.2rem;
+	}
+
+	.dayBrief, .weekBrief {
+		font-size: 1.5rem;
+	}
+
+	.location p {
+		font-size: 1.8rem;
+	}
+
+	.metaInfo>p, .currentTemp>p {
+	font-size: 1.4rem;
+}
+
 }
 
 @media (max-width: 470px) {
