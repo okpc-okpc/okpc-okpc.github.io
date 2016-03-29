@@ -15,8 +15,9 @@ html {
 .currentInfo {
 	display: flex;
 	flex-direction: column;
-	max-width: 32rem;
-	height: 24rem;
+	justify-content: space-between;
+	width: 35rem;
+	height: 27rem;
 	margin: 1.2rem auto;
 	/*background-color: rgba(250, 61, 255, .23);*/
 	background-color: #F1AFB9;
@@ -25,12 +26,13 @@ html {
 
 .secondaryInfo {
 	align-items: center;
+	margin-bottom: 1.5rem;
 }
 
 .tools, .mainInfo, .secondaryInfo {
 	/*background-color: lightblue;*/
 	display: flex;
-	margin: 1.2rem 0;
+	/*margin: 1.2rem 0;*/
 	justify-content: space-around;
 }
 
@@ -57,8 +59,8 @@ html {
 .info {
     position: relative;
     background-color: #43252A;
-    height: 1.8rem;
-    width: 1.8rem;
+    height: 2.4rem;
+    width: 2.4rem;
     text-align: center;
     margin-left: .8rem;
     cursor: pointer;
@@ -67,7 +69,7 @@ html {
 
 .info>p {
     margin: 0;
-    padding-top: 14%;
+    padding-top: 20%;
 	color: #EA8998;
 }
 
@@ -78,7 +80,7 @@ html {
 
 .currTemp {
 	font-family: 'Work Sans', sans-serif;
-	font-size: 6rem;
+	font-size: 6.5rem;
 	font-weight: 200;
 }
 
@@ -87,7 +89,7 @@ html {
 }
 
 .location p {
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 }
 
 
@@ -101,7 +103,7 @@ html {
 }
 
 .metaInfo>p, .currentTemp>p {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 }
 
 .currentTemp {
@@ -227,13 +229,13 @@ html {
 
 label>p {
 	margin: 0;
-	font-size: .8rem;
+	font-size: 1.1rem;
 }
 
 .toggle_radio{
   position: relative;
   background-color: #EA8998;
-  height: 1.8rem;
+  height: 2.4rem;
   box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   /*margin: 0 auto;
   overflow: hidden;
@@ -252,16 +254,16 @@ label>p {
   display: inline-block;
 /*  width: 35px;
   height: 18px;*/
-  margin: 5% 2% 0 6%;
+  margin: 5% 0 0 4%;
   cursor: pointer;
   /*z-index: 1;*/
   /*text-align: center;*/
 }
 .toggle_option_slider{
-  width: 32%;
-  height: 80%;
+  width: 29%;
+  height: 2rem;
   position: absolute;
-  top: 10%;
+  top: .25rem;
   -webkit-transition: all .4s cubic-bezier(0.81, -0.36, 0.29, 1.28);
   -moz-transition: all .4s cubic-bezier(0.81, -0.36, 0.29, 1.28);
   -o-transition: all .4s cubic-bezier(0.81, -0.36, 0.29, 1.28);
@@ -279,11 +281,11 @@ label>p {
 }
 #second_toggle:checked ~ .toggle_option_slider{
   background: rgba(240,255,255, .6);
-  left: 34%;
+  left: 32%;
 }
 #third_toggle:checked ~ .toggle_option_slider{
   background: rgba(240,255,255, .6);
-  left: 65%;
+  left: 68%;
 }
 
 
@@ -303,7 +305,7 @@ label>p {
 
 #toggleTemp label {
 	/*width: 32px;*/
-	margin: 10% 12% 0 12%;
+	margin: 12% 8% 0 6%;
 }
 
 input {
@@ -313,14 +315,14 @@ input {
 
 
 .message {
-    width: 28rem;
-    height: 16rem;
+    width: 34rem;
+    height: 18rem;
     /*line-height: 200px;*/
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -8rem;
-    margin-left: -14rem;
+    margin-top: -9rem;
+    margin-left: -17rem;
     background-color: #F6F395;
     border-radius: .2rem;
     text-align: center;
@@ -333,6 +335,7 @@ input {
 
 .message li {
 	line-height: 1.5;
+	font-size: 1.2rem;
 }
 
 .overlay {
@@ -354,7 +357,7 @@ input {
 .cross:before {
 	color: #444;
 	content: '❌';
-	font-size: 1.5rem;
+	font-size: 2rem;
 }
 
 .cross:hover {
@@ -426,20 +429,14 @@ input {
 	html {
 		font-size: 85%;
 	}
-}
 
-@media (max-width: 490px) {
-	html {
-		font-size: 80%;
-	}
+	/*.toggle_radio label {
+		margin: 5% 2% 0 5%;
+	}*/
 
-	.toggle_radio label {
-		margin: 5% 1% 0 4%;
-	}
-
-	#toggleTemp label {
-		margin: 13% 8% 0 8%;
-	}
+	/*#toggleTemp label {
+		margin: 13% 10% 0 10%;
+	}*/
 
 	[data-control] {
 		font-size: 1.2rem;
@@ -454,9 +451,15 @@ input {
 	}
 
 	.metaInfo>p, .currentTemp>p {
-	font-size: 1.4rem;
+		font-size: 1.4rem;
+	}
+
 }
 
+@media (max-width: 490px) {
+	html {
+		font-size: 80%;
+	}
 }
 
 @media (max-width: 470px) {

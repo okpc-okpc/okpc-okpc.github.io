@@ -671,13 +671,18 @@ $(document).ready(function () {
 
 	});
 
+	$(".info").on("click", function() {
+		$(".overlay").css("display", "block")
+	})
+
 	$(".cross").on("click", function() {
 		$(".overlay").css("display", "none")
 	})
 
-	$(".info").on("click", function() {
-		$(".overlay").css("display", "block")
+	$(".overlay").on("click", function() {
+		$(this).css("display", "none")
 	})
+
 });
 
 

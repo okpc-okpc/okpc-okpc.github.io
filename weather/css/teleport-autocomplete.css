@@ -6,13 +6,13 @@
 
 .tp-ac__input {
   width: 85%;
-  height: 1.8rem;
+  height: 2.4rem;
   padding: 0 5px;
   border: solid 0px transparent;
   border-radius: 0;
   background-color: #F5EDED;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
-  font-size: 1rem;
+  font-size: 1.1rem;
   /*font-weight: bold;*/
   -webkit-appearance: none;
   text-overflow: ellipsis; }
@@ -47,12 +47,12 @@
   color: #797979;
   background-color: #fff;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
-  font-size: 1rem;
+  font-size: 1.1rem;
   }
 
 .tp-ac__item {
   color: #aaa;
-  font-size: 1rem;
+  font-size: 1.1rem;
   overflow: hidden;
   padding: 0 0.2em;
   cursor: pointer;
@@ -103,7 +103,7 @@
 /*# sourceMappingURL=teleport-autocomplete.css.map */
 
 
-@media (max-width: 490px) {
+@media (max-width: 530px) {
 
   .tp-ac__list {
     width: 110%;
