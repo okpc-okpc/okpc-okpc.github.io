@@ -12,13 +12,23 @@ html {
 	font-size: 110%;
 }
 
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin: .5rem;
+}
+
+.headerIcon {
+	color: #F2E552;
+}
+
 .currentInfo {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 35rem;
 	height: 27rem;
-	margin: 1.2rem auto;
+	margin: 0 auto 1.2rem auto;
 	/*background-color: rgba(250, 61, 255, .23);*/
 	background-color: #F1AFB9;
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
@@ -138,7 +148,7 @@ html {
 }
 
 [data-control] {
-	font-size: .9rem;
+	font-size: 1rem;
 }
 
 [data-content] {
@@ -148,7 +158,7 @@ html {
 .dayBrief, .weekBrief {
 	margin: .5rem 0 0 1rem;
 	display: inline-block;
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 }
 
 
