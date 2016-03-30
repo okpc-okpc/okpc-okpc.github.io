@@ -2,33 +2,13 @@ var currentPlace = {};
 var wRequestUrl = "";
 var responds = {};
 var geoRespond;
-// var temperature = 0;
 var appId = "5fb8da6c7819d24192882b5b6934556d";
 var isCelsius;
 var windUnit;
-
-// var wUnits = {
-// 	metrical: ["°C", " m/s"],
-// 	imperial: ["°F", " mph"]
-// };
-// var wDirection = "";
 var fetcher;
 var fetcherMaker;
 var storageFlag;
 var searchResult = {};
-// var icon = [
-// 	clear-day =🌣{"<i class=wi wi-day-sunny></i>"},
-// 	clear-night:🌛'<i class="wi wi-night-clear"></i>',
-// 	rain:🌧'<i class="wi wi-rain"></i>',
-// 	snow:🌨'<i class="wi wi-snow"></i>',
-// 	sleet: '<i class="wi wi-sleet"></i>',
-// 	wind: '<i class="wi wi-strong-wind"></i>',
-// 	fog: '<i class="wi wi-fog"></i>',
-// 	cloudy: '<i class="wi wi-cloudy"></i>',
-// 	partly-cloudy-day: '<i class="wi wi-day-cloudy"></i>',
-// 	partly-cloudy-night: '<i class="wi wi-night-alt-cloudy"></i>'
-// ]
-
 
 
 
@@ -548,35 +528,35 @@ function togglesInitialState() {
 //Initialize temperature
 
 		isCelsius = localStorage.isCelsius || true;
-	 	if(localStorage.isCelsius === 'true' || isCelsius === true) {
-	 		$('#first_toggle-2').prop('checked', 'checked');
-	 		isCelsius = true;
-	 	}
-	 	else if(localStorage.isCelsius === 'false' || isCelsius === false){
-	 		$('#second_toggle-2').prop('checked', 'checked');
-	 		isCelsius = false;
-	 	}
+		if(localStorage.isCelsius === 'true' || isCelsius === true) {
+			$('#first_toggle-2').prop('checked', 'checked');
+			isCelsius = true;
+		}
+		else if(localStorage.isCelsius === 'false' || isCelsius === false){
+			$('#second_toggle-2').prop('checked', 'checked');
+			isCelsius = false;
+		}
 
 //Initialize wind speed
 		windUnit = localStorage.windUnit || 'm/s';
-	 	if(localStorage.windUnit === 'm/s' || windUnit === 'm/s') {
-	 		$('#first_toggle').prop('checked', 'checked');
-	 		windUnit = 'm/s';
-	 	} else if(localStorage.windUnit === 'km/h' || windUnit === 'km/h'){
-	 		$('#second_toggle').prop('checked', 'checked');
-	 		windUnit = 'km/h';
-	 	}
-	 	else if(localStorage.windUnit === 'mph' || windUnit === 'mph'){
-	 		$('#third_toggle').prop('checked', 'checked');
-	 		windUnit = 'mph';
-	 	}
+		if(localStorage.windUnit === 'm/s' || windUnit === 'm/s') {
+			$('#first_toggle').prop('checked', 'checked');
+			windUnit = 'm/s';
+		} else if(localStorage.windUnit === 'km/h' || windUnit === 'km/h'){
+			$('#second_toggle').prop('checked', 'checked');
+			windUnit = 'km/h';
+		}
+		else if(localStorage.windUnit === 'mph' || windUnit === 'mph'){
+			$('#third_toggle').prop('checked', 'checked');
+			windUnit = 'mph';
+		}
 //default temperature and wind units if local storage isn't available
-	 } else if(storageFlag === false) {
-	 	$('#first_toggle-2').prop('checked', 'checked');
-	 	isCelsius = true;
-	 	$('#first_toggle').prop('checked', 'checked');
-	 	isCelsius = 'm/s';
-	 }
+	} else if(storageFlag === false) {
+		$('#first_toggle-2').prop('checked', 'checked');
+		isCelsius = true;
+		$('#first_toggle').prop('checked', 'checked');
+		isCelsius = 'm/s';
+	}
 
 
 
@@ -593,10 +573,10 @@ function togglesInitialState() {
 $(document).ready(function () {
 	togglesInitialState();
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
-        searchResult = value;
-        reverseGeo();
-        // $('.searchbar:after').css('display', 'inline-block');
-      });
+		searchResult = value;
+		reverseGeo();
+		// $('.searchbar:after').css('display', 'inline-block');
+	});
 
 	// $('.my-input').on('focus', function () {
 	// 	$('.searchbar').addClass('cross');

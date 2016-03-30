@@ -1,7 +1,6 @@
 /*! teleport-autocomplete - v0.3.0 | https://github.com/teleport/autocomplete#readme | MIT */
 .tp-autocomplete {
   position: relative;
-  /*max-width: 25em;*/
 }
 
 .tp-ac__input {
@@ -13,7 +12,6 @@
   background-color: #F5EDED;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
   font-size: 1.1rem;
-  /*font-weight: bold;*/
   -webkit-appearance: none;
   text-overflow: ellipsis; }
   .tp-ac__input::-webkit-input-placeholder {
@@ -32,10 +30,6 @@
     outline: none; }
   .tp-ac__input::-ms-clear {
     display: none; }
-  .spinner .tp-ac__input {
-    /*padding-right: 1.5em;*/
-    /*margin-right: -1.5em;*/
-     }
 
 .tp-ac__list {
   position: absolute;
@@ -70,9 +64,7 @@
     cursor: default;
     background-color: #fff; }
   .tp-ac__item span {
-    /*font-size: 1rem;*/
     color: #282828;
-    /*font-weight: bold;*/
      }
 
 @-webkit-keyframes spinner {
@@ -91,8 +83,6 @@
   right: 12%;
   width: 1rem;
   height: 1rem;
-  /*margin-top: -0.625em;*/
-  /*margin-left: -0.625em;*/
   content: '';
   -webkit-animation: spinner 1s linear infinite;
           animation: spinner 1s linear infinite;

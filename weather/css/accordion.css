@@ -38,17 +38,21 @@
     position: absolute;
     right: 10px;
     top: 12px;
-    font-size: 25px;
-    font-weight: 200;
     color: #444;
     height: 15px;
     width: 24px;
-    background: url('../images/down.png') center center no-repeat;
-    background-size: 50%;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAPCAYAAAD+pA/bAAABJElEQVQ4Ec2TLWgCYRzGzzEZA0GwGVYWLCtLphVNmmxrNm3aXJQlDQbTMK6Izba2ZDJZXLAsWASDIAiCiJ+/R07xTlE8b7AHfve+/6/n5Txfw/gb3dttIyQ+wGMvOIgDzLThfTvrYzOAFVS2SYern7kWyKsD8t4oynMCKpQ3mcsfMmuCPH4hCBbFiaaghoKlcj7Qb94AzXbhAY4qQXYGaswf7ThM3pH6Bs304BFO6pXqHDSQO9lpGF7qX2ZvnzV0pn9XTrJbgA7J7LLWzS1hHdSjP8kTXKQ03UuTlG3yhrgGMh/CMzhSlimZ6G30VpLuyicoP4IwXKU3pmWm76LvUzHjMesLuKI8LjqkCj+gO6O746qKuOkQ3ZWYq857ZiX2uiv/R2tC+jumsgxNZAAAAABJRU5ErkJggg==') center center no-repeat;
+    background-size: 60%;
 }
 
 [data-accordion].open > [data-control]:after {
     -webkit-transform: rotate(-180deg);
     -ms-transform: rotate(-180deg);
     transform: rotate(-180deg);
+    transition: .6s cubic-bezier(0.51, 0.1, 0.15, 1.32) all;;
+}
+
+[data-accordion] > [data-control]:after {
+
+    transition: .6s cubic-bezier(0.51, 0.1, 0.15, 1.32) all;;
 }
