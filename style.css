@@ -1,0 +1,148 @@
+* {
+	font-family: 'Work Sans', sans-serif;
+}
+
+html {
+	font-size: 110%;
+	line-height: 1.5;
+
+}
+
+body {
+	background: #fdfcf4;
+}
+
+.container {
+	display:flex;
+	flex-direction: column;
+	max-width: 1000px;
+	margin: 1.5rem auto;
+}
+
+header {
+	display:flex;
+	flex-direction: column;
+}
+
+.banner {
+	background: #006400;
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Averia Sans Libre', cursive;
+	color: #fff;
+	font-size: 2.5rem;
+}
+
+.intro {
+	padding: 1.5rem;
+}
+
+.wrapper {
+	display:flex;
+}
+
+.content {
+	display:flex;
+	flex-direction: column;
+	flex: 8;
+}
+
+/*.list {
+	margin-top: 3rem;
+}
+*/
+.main {
+	display:flex;
+	flex-direction: column;
+}
+
+/*aside {
+	display:flex;
+	flex-direction: column;
+	flex: 2;
+}
+*/
+.tabs {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	margin: 5px 5px 0 5px;
+	flex: 3;
+	height: 40px;
+	text-align: center;
+	font-size: 1.2rem;
+	padding-top: 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.frontEnd {
+	background: #F0DB4F;
+	margin-left: 0;
+}
+
+.dataVisualization {
+	background: #F5864A;
+	opacity: .4;
+}
+
+.backEnd {
+	background: #026E00;
+	margin-right: 0;
+	opacity: .4;
+}
+
+#front {
+	border: 1px solid #F0DB4F;
+	border-top: 0;
+	padding: 1rem;
+}
+
+#data {
+	border: 1px solid #F5864A;
+	border-top: 0;
+	padding: 1rem;
+}
+
+#back {
+	border: 1px solid #026E00;
+	border-top: 0;
+	padding: 1rem;
+}
+
+#data, #back {
+	display: none;
+}
+
+.frontItem {
+	display:flex;
+	flex-direction: column;
+}
+
+.card {
+	display:flex;
+}
+
+.header {
+	padding: .2rem;
+	text-align: center;
+}
+
+.easyHeader {
+	background: #96ceff;
+}
+
+.mediumHeader {
+	background: #ffdf96;
+}
+
+h3 {
+	margin: 0;
+}
