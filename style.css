@@ -56,7 +56,7 @@ h1 {
 .main {
 	display:flex;
 	flex-direction: column;
-	background: #fff;
+	background: #fafaff;
 }
 
 /*aside {
