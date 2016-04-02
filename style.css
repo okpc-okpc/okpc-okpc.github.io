@@ -92,6 +92,8 @@ nav li {
 .dataVisualization {
 	background: #F5864A;
 	opacity: .4;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .backEnd {
@@ -145,6 +147,10 @@ nav li {
 	background: #ffdf96;
 }
 
+.hardHeader {
+	background: #f36262;
+}
+
 h3 {
 	margin: 0;
 }
@@ -161,4 +167,18 @@ img {
 	font-weight: 300;
 	text-transform: uppercase;
 	font-size: .9rem;
+}
+
+
+.about {
+	font-size: .7rem;
+}
+
+.about > ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.req {
+	list-style: disc;
 }
