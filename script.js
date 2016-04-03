@@ -9,18 +9,18 @@ $(document).ready(function () {
 		$('.dataVisualization, .backEnd').css('opacity', '.4');
 
 	});
-	$('.backEnd').on('click', function () {
-		$('#back, .backList').css('display', 'block');
-		$(this).css('opacity', '1');
-		// $('.backList').css('display', 'block');
-		$('#front, #data, .frontList, .dataList').css('display', 'none');
-		$('.frontEnd, .dataVisualization').css('opacity', '.4');
-	});
-	$('.dataVisualization').on('click', function () {
-		$('#data, .dataList').css('display', 'block');
-		$(this).css('opacity', '1');
-		// $('.dataList').css('display', 'block');
-		$('#front, #back, .frontList, .backList').css('display', 'none');
-		$('.frontEnd, .backEnd').css('opacity', '.4');
-	})
+	// $('.backEnd').on('click', function () {
+	// 	$('#back, .backList').css('display', 'block');
+	// 	$(this).css('opacity', '1');
+	// 	// $('.backList').css('display', 'block');
+	// 	$('#front, #data, .frontList, .dataList').css('display', 'none');
+	// 	$('.frontEnd, .dataVisualization').css('opacity', '.4');
+	// });
+	// $('.dataVisualization').on('click', function () {
+	// 	$('#data, .dataList').css('display', 'block');
+	// 	$(this).css('opacity', '1');
+	// 	// $('.dataList').css('display', 'block');
+	// 	$('#front, #back, .frontList, .backList').css('display', 'none');
+	// 	$('.frontEnd, .backEnd').css('opacity', '.4');
+	// })
 })
