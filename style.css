@@ -155,8 +155,12 @@ h3 {
 	margin: 0;
 }
 
-img {
+/*img {
 	margin: 1rem;
+}*/
+
+.illustration, .description {
+	padding: 1rem;
 }
 
 .projectLink {
