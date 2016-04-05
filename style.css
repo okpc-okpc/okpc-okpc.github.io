@@ -46,7 +46,7 @@ h1 {
 .content {
 	display:flex;
 	flex-direction: column;
-	flex: 8;
+	/*flex: 8;*/
 }
 
 /*.list {
@@ -155,22 +155,28 @@ h3 {
 	margin: 0;
 }
 
-/*img {
-	margin: 1rem;
-}*/
+img {
+	max-width: 450px;
+}
 
 .illustration, .description {
 	padding: 1rem;
 }
 
+.illustration.right {
+	order: 2;
+}
+
 .projectLink {
-	background: #47505a;
+	background: rgba(28, 89, 134, 0.75);
 	padding: .6rem;
 	text-decoration: none;
 	color: #fff;
 	font-weight: 300;
 	text-transform: uppercase;
 	font-size: .9rem;
+	text-align: center;
+	display: block;
 }
 
 
@@ -185,4 +191,59 @@ h3 {
 
 .req {
 	list-style: disc;
+}
+
+
+
+@media (max-width: 950px) {
+	img {
+		max-width: 100%;
+		display: block;
+		margin: 0 auto;
+	}
+	.card {
+		flex-wrap: wrap;
+	}
+	.illustration.right {
+		order: 0;
+	}
+	.illustration {
+		width: 100%;
+	}
+}
+
+@media (max-width: 710px) {
+	nav li {
+		font-size: 1.1rem
+	}
+}
+
+@media (max-width: 650px) {
+	.dataVisualization {
+		line-height: 1;
+	}
+}
+
+@media (max-width: 480px) {
+	nav li {
+		font-size: 1rem
+	}
+}
+
+@media (max-width: 410px) {
+	nav li {
+		font-size: 0.9rem
+	}
+}
+
+@media (max-width: 340px) {
+	.frontEnd {
+		line-height: 1;
+	}
+}
+
+@media (max-width: 320px) {
+	.backEnd {
+		line-height: 1;
+	}
 }
