@@ -105,7 +105,7 @@ nav li {
 #front {
 	border: 1px solid #F0DB4F;
 	border-top: 0;
-	padding: 1rem;
+	padding: 0 1rem 1rem;
 }
 
 #data {
@@ -225,8 +225,20 @@ img {
 }
 
 @media (max-width: 480px) {
+	.container {
+		margin: .5rem auto;
+	}
+	.intro {
+		padding: .5rem;
+	}
 	nav li {
 		font-size: 1rem
+	}
+	.illustration {
+		padding: 1rem 0 0;
+	}
+	.description {
+		padding: 0;
 	}
 }
 
@@ -239,6 +251,10 @@ img {
 @media (max-width: 340px) {
 	.frontEnd {
 		line-height: 1;
+	}
+	h1 {
+		font-size: 2.3rem;
+		margin: 0;
 	}
 }
 
