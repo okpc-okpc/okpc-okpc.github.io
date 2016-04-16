@@ -44,7 +44,7 @@ function updateRangeInputValue(val) {
 -------------------------------------------*/
 function getAdvice() {
 	$.ajax({
-		url: "https://crossorigin.me/http://api.adviceslip.com/advice",
+		url: "http://api.adviceslip.com/advice",
 		type: "GET",
 		dataType: "json",
 		success: function(json) {

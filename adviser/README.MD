@@ -1,1 +1,1 @@
-[Live example](https://okpc-okpc.github.io/adviser/)
+[Live example](http://okpc-okpc.github.io/adviser/)
