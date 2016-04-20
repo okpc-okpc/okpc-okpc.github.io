@@ -112,3 +112,4 @@ $(document).ready(function() {
 	$("#slideshowControllers").toggle(200);
   })
 });
+

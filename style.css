@@ -177,6 +177,8 @@ img {
 	font-size: .9rem;
 	text-align: center;
 	display: block;
+	max-width: 250px;
+	margin: 0 auto;
 }
 
 
