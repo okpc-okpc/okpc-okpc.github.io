@@ -90,16 +90,18 @@ nav li {
 }
 
 .dataVisualization {
-	background: #F5864A;
-	opacity: .4;
+	/*background: #F5864A;*/
+	background: #a2a2a2;
+	opacity: .2;
 	margin-left: 0;
 	margin-right: 0;
 }
 
 .backEnd {
-	background: #026E00;
+	/*background: #026E00;*/
+	background: #a2a2a2;
 	margin-right: 0;
-	opacity: .4;
+	opacity: .2;
 }
 
 #front {

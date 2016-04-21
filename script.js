@@ -6,7 +6,7 @@ $(document).ready(function () {
 		$(this).css('opacity', '1');
 		// $('.frontList').css('display', 'block');
 		$('#data, #back').css('display', 'none');
-		$('.dataVisualization, .backEnd').css('opacity', '.4');
+		$('.dataVisualization, .backEnd').css('opacity', '.2').css('background', '#a2a2a2');
 
 	});
 	// $('.backEnd').on('click', function () {
