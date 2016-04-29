@@ -90,9 +90,6 @@ function slideshowStop() {						//onclick <button#slideshowStop>
 	$("#slideshowStart").removeAttr("disabled");
 }
 
-function sendMeToTwitter() {
-
-}
 
 /*-------------MAIN FUNCTION------------------
 ----------------------------------------------*/

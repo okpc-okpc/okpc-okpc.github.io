@@ -12,8 +12,8 @@ body {
 }
 
 #page-wrap {
-     max-width: 500px;
-     margin: 0 auto;
+	max-width: 500px;
+	margin: 0 auto;
 
 }
 
@@ -53,16 +53,12 @@ h1 {
 }
 
 #mainButtons {
-	/*position: absolute;
-	top: 290px;
-	left: 65px;*/
 	width: 360px;
 	margin: 0 auto;
 }
 
 #slideshowSettings {
-	position: relative;
-	width: 90%;
+	width: 95%;
 	margin-top: 2em;
 }
 
@@ -136,7 +132,7 @@ button {
 /*---------range slider styles----------
 ----------------------------------------*/
 
-/*delete befault browser styles*/
+/*delete browser default styles*/
 	input[type=range] {
 		-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
 		width: 100%; /* Specific width is required for Firefox. */
@@ -266,22 +262,15 @@ button {
 	}
 
 	#container {
-		position: relative;
 		height: 250px;
-		/*width: 90%;*/
 		font-size: 1.6em;
 	}
 
 	#mainButtons {
 		width: 300px;
-/*		position: absolute;
-		top: 230px;
-		left: 55px;
-*/
 	}
 
 	#slideshowSettings {
-		position: relative;
 		width: 90%;
 	}
 
@@ -312,7 +301,6 @@ button {
 		padding:5px 20px;
 	}
 	#mainButtons {
-		/*left: 35px;*/
 		width: 260px;
 	}
 	h1 {
