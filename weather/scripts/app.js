@@ -73,8 +73,6 @@ function reverseGeo() {
 	console.log(searchResult);
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude;
-	 // var geoRequestUrl = "https://api.opencagedata.com/geocode/v1/json?q="
-		//  + currentPlace.latitude + "+" + currentPlace.longitude + "&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e";
 	var geoRequestUrl = "https://api.teleport.org/api/locations/"
 		+ lat + ","	+ lon
 		+ "/?embed=location%3Anearest-cities%2Flocation%3Anearest-city";
@@ -330,38 +328,8 @@ fetcherMaker = function (weatherdata) {
 			icon = weatherdata[timeRange].data[dataInstance].icon
 		}
 
-		switch (true) {
-		case (icon === 'clear-day'):
-			symbol = '<i class="wi wi-day-sunny"></i>';
-			break;
-		case (icon === 'clear-night'):
-			symbol = '<i class="wi wi-night-clear"></i>';
-			break;
-		case (icon === 'rain'):
-			symbol = '<i class="wi wi-rain"></i>';
-			break;
-		case (icon === 'snow'):
-			symbol = '<i class="wi wi-snow"></i>';
-			break;
-		case (icon === 'sleet'):
-			symbol = '<i class="wi wi-sleet"></i>';
-			break;
-		case (icon === 'wind'):
-			symbol = '<i class="wi wi-strong-wind"></i>';
-			break;
-		case (icon === 'fog'):
-			symbol = '<i class="wi wi-fog"></i>';
-			break;
-		case (icon === 'cloudy'):
-			symbol = '<i class="wi wi-cloudy"></i>';
-			break;
-		case (icon === 'partly-cloudy-day'):
-			symbol = '<i class="wi wi-day-cloudy"></i>';
-			break;
-		case (icon === 'partly-cloudy-night'):
-			symbol = '<i class="wi wi-night-alt-cloudy"></i>';
-			break;
-		}
+		symbol = '<i class="wi wi-forecast-io-' + icon + '"></i>';
+
 		return symbol
 	}
 
@@ -370,12 +338,6 @@ fetcherMaker = function (weatherdata) {
 		if ((timeRange === "hourly") || (timeRange === "daily")) {
 			probability = Math.round(weatherdata[timeRange].data[dataInstance].precipProbability * 100)
 		}
-
-		// if (probability === 0) {
-		// 	probability = '-';
-		// 	return probability;
-
-		// }
 
 		return probability+"%"
 	}
@@ -575,27 +537,7 @@ $(document).ready(function () {
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
 		searchResult = value;
 		reverseGeo();
-		// $('.searchbar:after').css('display', 'inline-block');
 	});
-
-	// $('.my-input').on('focus', function () {
-	// 	$('.searchbar').addClass('cross');
-	// })
-
-	// $('.my-input').on('blur', function () {
-	// 	$('.searchbar').removeClass('cross');
-	// 	$(this).val([]);
-	// 	$('tp-ac__list').css('display', 'none');
-	// })
-
-	//$('.close-icon').on('click', function () {
-		// $('.my-input').val('');
-		// var press = jQuery.Event("keydown");
-		// press.ctrlKey = false;
-		// press.which = 8;
-		// $(".my-input").val(press);
-	//})
-
 
 //ask user and get current coordinates from browser
 	getCoordinates.location(function () {
