@@ -1,14 +1,15 @@
-var currentPlace = {};
-var wRequestUrl = "";
-var responds = {};
-var geoRespond;
-var appId = "5fb8da6c7819d24192882b5b6934556d";
-var isCelsius;
-var windUnit;
-var fetcher;
-var fetcherMaker;
-var storageFlag;
-var searchResult = {};
+(function() {
+var currentPlace = {},
+	wRequestUrl = "",
+	responds = {},
+	geoRespond,
+	appId = "5fb8da6c7819d24192882b5b6934556d",
+	isCelsius,
+	windUnit,
+	fetcher,
+	fetcherMaker,
+	storageFlag,
+	searchResult = {};
 
 
 
@@ -157,8 +158,6 @@ fetcherMaker = function (weatherdata) {
 	*/
 	function getTemp(timeRange, isCelsius, apparent, dataInstance) {
 		var tempCurr, tempMax, tempMin, tempDaily, temp, tempOption;
-
-
 
 		var tempSign = function (val) {
 			 if (val > 0)
@@ -327,7 +326,6 @@ fetcherMaker = function (weatherdata) {
 		} else if ((timeRange === "hourly") || (timeRange === "daily")) {
 			icon = weatherdata[timeRange].data[dataInstance].icon
 		}
-
 		symbol = '<i class="wi wi-forecast-io-' + icon + '"></i>';
 
 		return symbol
@@ -338,7 +336,6 @@ fetcherMaker = function (weatherdata) {
 		if ((timeRange === "hourly") || (timeRange === "daily")) {
 			probability = Math.round(weatherdata[timeRange].data[dataInstance].precipProbability * 100)
 		}
-
 		return probability+"%"
 	}
 
@@ -401,8 +398,6 @@ function showCurrentWeather() {
 	$(".dayBrief").append(responds.hourly.summary);
 
 	$(".weekBrief").append(responds.daily.summary);
-
-
 }
 
 /*
@@ -486,9 +481,9 @@ function togglesInitialState() {
 		storageFlag = true;
 	}
 
-	 if(storageFlag === true) {
-//Initialize temperature
+	if(storageFlag === true) {
 
+//Initialize temperature
 		isCelsius = localStorage.isCelsius || true;
 		if(localStorage.isCelsius === 'true' || isCelsius === true) {
 			$('#first_toggle-2').prop('checked', 'checked');
@@ -512,6 +507,7 @@ function togglesInitialState() {
 			$('#third_toggle').prop('checked', 'checked');
 			windUnit = 'mph';
 		}
+
 //default temperature and wind units if local storage isn't available
 	} else if(storageFlag === false) {
 		$('#first_toggle-2').prop('checked', 'checked');
@@ -519,9 +515,6 @@ function togglesInitialState() {
 		$('#first_toggle').prop('checked', 'checked');
 		isCelsius = 'm/s';
 	}
-
-
-
 }
 
 /*=========================================================
@@ -586,7 +579,6 @@ $(document).ready(function () {
 		}
 		console.log(windUnit)
 		clearData();
-
 		showCurrentWeather();
 		showShortForecast();
 		showLongForecast();
@@ -607,7 +599,7 @@ $(document).ready(function () {
 
 });
 
-
+}())
 
 /*
 Reverse geocoding:
@@ -631,7 +623,6 @@ https://github.com/teleport/autocomplete
 http://jqueryui.com/autocomplete/#remote-jsonp
 
 accordion: http://vctrfrnndz.github.io/jquery-accordion/
-
 
 icons: https://erikflowers.github.io/weather-icons/
 
