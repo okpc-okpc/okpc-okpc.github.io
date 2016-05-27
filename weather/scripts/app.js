@@ -2,67 +2,38 @@
 var currentPlace = {},
 	wRequestUrl = "",
 	responds = {},
-	geoRespond,
+	geoRespond = {},
+	searchResult = {},
 	appId = "5fb8da6c7819d24192882b5b6934556d",
 	isCelsius,
 	windUnit,
 	fetcher,
 	fetcherMaker,
-	storageFlag,
-	searchResult = {};
+	storageFlag;
 
 
-
-
-
-var getCoordinates = (function () {
-	var geoposition,
-		options = {
-			maximumAge: 1000,
-			timeout: 15000,
-			enableHighAccuracy: false
-		};
-
-	function showError(error) {
-		switch (error.code) {
-		case error.PERMISSION_DENIED:
-			throw "User denied the request for Geolocation.";
-		case error.POSITION_UNAVAILABLE:
-			throw "Location information is unavailable.";
-		case error.TIMEOUT:
-			throw "The request to get user location timed out.";
-		case error.UNKNOWN_ERROR:
-			throw "An unknown error occurred.";
-		default:
-			throw "Unknown error";
-		}
-	}
-
-	function _onSuccess(callback, position) {
-		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
-		currentPlace = position.coords;
-		reverseGeo();
-		callback();
-	}
-
-	function _onError(callback, error) {
-		callback();
-		showError(error);
-
-	}
-
-	function _getLocation(callback) {
-		navigator.geolocation.getCurrentPosition(
-			_onSuccess.bind(this, callback),
-			_onError.bind(this, callback),
-			options
-		);
-	}
-
-	return {
-		location: _getLocation
+function getCoordinates() {
+	var options = {
+		maximumAge: 1000,
+		timeout: 15000,
+		enableHighAccuracy: false
 	};
-}());
+	var deferred = $.Deferred()
+
+	function success(position) {
+		currentPlace = position.coords;
+		deferred.resolve();
+	};
+
+	function error(err) {
+		console.warn('ERROR(' + err.code + '): ' + err.message);
+		deferred.reject();
+	};
+
+	navigator.geolocation.getCurrentPosition(success, error, options);
+
+	return deferred.promise();
+}
 
 /*
 	==================================================================================================================
@@ -71,30 +42,21 @@ var getCoordinates = (function () {
 */
 
 function reverseGeo() {
-	console.log(searchResult);
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude;
 	var geoRequestUrl = "https://api.teleport.org/api/locations/"
 		+ lat + ","	+ lon
 		+ "/?embed=location%3Anearest-cities%2Flocation%3Anearest-city";
-	console.log(geoRequestUrl);
 
-	$.ajax({
+	return $.ajax({
 		url: geoRequestUrl,
 		type: "GET",
 		dataType: "json",
 		success: function (geo) {
 			geoRespond = geo;
-			console.log(geoRespond);
-		},
-		error: function (xhr, status, errorThrown) {
-			console.log("reverseGeo: " + status);
-		},
-		complete: [function (xhr, status) {
-			console.log("reverseGeo: " + status);
-		},
-			function () {getWeather() }
-			]
+		// },
+		// error: function (xhr, status, errorThrown) {
+		}
 	})
 }
 
@@ -109,35 +71,15 @@ function getWeather() {
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude
 	wRequestUrl = "https://api.forecast.io/forecast/" + appId + "/" + lat + "," + lon;
-	console.log(wRequestUrl);
 
-	$.ajax({
+	return $.ajax({
 		url: wRequestUrl,
 		type: "GET",
 		dataType: "jsonp",
-		success: [function (json) {
+		success: function (json) {
 				responds = json;
-				console.log("Inside getWeather: ");
-				console.log(responds);
-			},
-			function() {
-				fetcher = fetcherMaker(responds);
-				console.log('fetcher inside AJAX:');
-				console.log(fetcher);
-			},
-			function() {
-				showCurrentWeather();
-				showShortForecast();
-				showLongForecast();
-				// console.log('I invoked fetcher');
-			}
-		],
-		error: function (xhr, status, errorThrown) {
-			console.log("getWeather: " + status);
-		},
-		complete: function (xhr, status) {
-			console.log("getWeather: " + status);
-			//showWeather()
+		// },
+		// error: function (xhr, status, errorThrown) {
 		}
 	})
 }
@@ -181,7 +123,6 @@ fetcherMaker = function (weatherdata) {
 
 		if (isCelsius === true) {
 			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8));
-			// console.log('BLIP!!!!');
 			temp = tempSign(Math.round((temp - 32) / 1.8));
 			tempMax = tempSign(Math.round((tempMax - 32) / 1.8));
 			tempMin = tempSign(Math.round((tempMin - 32) / 1.8));
@@ -189,7 +130,6 @@ fetcherMaker = function (weatherdata) {
 			tempDaily = tempMin + ".." + tempMax;
 		} else if (isCelsius === false) {
 			tempCurr = Math.round(tempCurr);
-			// console.log('BLOP!!!!');
 			temp = Math.round(temp);
 			tempMax = Math.round(tempMax);
 			tempMin = Math.round(tempMin);
@@ -339,9 +279,6 @@ fetcherMaker = function (weatherdata) {
 		return probability+"%"
 	}
 
-
-	console.log('Inside fetcherMaker');
-	console.log(weatherdata);
 	return {
 		fetchTemp: getTemp,
 		fetchCloudCover: getCloudCover,
@@ -365,11 +302,6 @@ function showCurrentWeather() {
 	var city = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name;
 	var adminLevel = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name
 	var country = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name
-	console.log("Inside showCurrentWeather: ");
-	console.log(responds);
-	console.log(fetcher);
-	console.log('isCelsius: ' + isCelsius);
-	console.log(geoRespond);
 
 	if (isCelsius === true) {
 		tempValue = "°C";
@@ -428,8 +360,6 @@ function showShortForecast () {
 
 
 function showLongForecast () {
-	// isCelsius = localStorage.isCelsius || isCelsius;
-	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".longInstance").each(function (index) {
 		$(this).append("<p class='time'>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
@@ -473,17 +403,16 @@ function storageAvailability(type) {
 	}
 }
 
-
 function togglesInitialState() {
 
-//check Local Storage availability
+	//check Local Storage availability
 	if(storageAvailability('localStorage')) {
 		storageFlag = true;
 	}
 
 	if(storageFlag === true) {
 
-//Initialize temperature
+	//Initialize temperature
 		isCelsius = localStorage.isCelsius || true;
 		if(localStorage.isCelsius === 'true' || isCelsius === true) {
 			$('#first_toggle-2').prop('checked', 'checked');
@@ -494,7 +423,7 @@ function togglesInitialState() {
 			isCelsius = false;
 		}
 
-//Initialize wind speed
+	//Initialize wind speed
 		windUnit = localStorage.windUnit || 'm/s';
 		if(localStorage.windUnit === 'm/s' || windUnit === 'm/s') {
 			$('#first_toggle').prop('checked', 'checked');
@@ -508,13 +437,20 @@ function togglesInitialState() {
 			windUnit = 'mph';
 		}
 
-//default temperature and wind units if local storage isn't available
+	//default temperature and wind units if local storage isn't available
 	} else if(storageFlag === false) {
 		$('#first_toggle-2').prop('checked', 'checked');
 		isCelsius = true;
 		$('#first_toggle').prop('checked', 'checked');
 		isCelsius = 'm/s';
 	}
+}
+
+function redraw() {
+	clearData();
+	showCurrentWeather();
+	showShortForecast();
+	showLongForecast();
 }
 
 /*=========================================================
@@ -532,12 +468,13 @@ $(document).ready(function () {
 		reverseGeo();
 	});
 
-//ask user and get current coordinates from browser
-	getCoordinates.location(function () {
-		console.log('Main, after getCoordinates');
-		// $('.overlay').css('display', 'none');
-
-	});
+	getCoordinates().then(reverseGeo)
+		.then(getWeather)
+		.done(function() {
+			console.log(currentPlace, '\n', geoRespond, '\n', responds);
+			fetcher = fetcherMaker(responds);
+			redraw();
+		});
 
 //make accordion for forecasts
 	$('.accordion').accordion({
@@ -558,10 +495,7 @@ $(document).ready(function () {
 				localStorage.isCelsius = false
 			}
 		}
-		clearData();
-		showCurrentWeather();
-		showShortForecast();
-		showLongForecast();
+		redraw();
 	});
 
 //wind speed value toggler
@@ -577,12 +511,8 @@ $(document).ready(function () {
 			windUnit = 'mph';
 			localStorage.windUnit = 'mph'
 		}
-		console.log(windUnit)
-		clearData();
-		showCurrentWeather();
-		showShortForecast();
-		showLongForecast();
-
+		console.log(windUnit);
+		redraw();
 	});
 
 	$(".info").on("click", function() {
