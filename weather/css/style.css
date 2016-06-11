@@ -6,6 +6,7 @@
 
 body {
 	background-color: #79B9AA;
+	/*background-color: #89cfbe;*/
 }
 
 html {
@@ -30,6 +31,7 @@ h1 {
 	height: 27rem;
 	margin: 0 auto 1.2rem auto;
 	background-color: #F1AFB9;
+	/*background-color: #ffb5c0;*/
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
@@ -139,14 +141,15 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	padding: .8rem 0!important;
+	padding: .8rem 0;
 }
 
 .shortlist {
 	display: flex;
 	justify-content: space-between;
 	padding: 0 .8rem;
-	background-color: #EFD9B5;
+	/*background-color: #EFD9B5;*/
+	background-color: #e9e1ab;
 }
 
 .labels, .shortInstance, .longInstance {
@@ -175,7 +178,7 @@ h1 {
 	display: flex;
 	justify-content: space-around;
 	margin: .8rem auto;
-	padding: 0!important;
+	padding: 0;
 	border-bottom: 0!important;
 	background-color: #EFD9B5;
 }
@@ -205,6 +208,7 @@ label>p {
 .toggle_radio{
 	position: relative;
 	background-color: #EA8998;
+	/*background-color: #f492a0;*/
 	height: 2.4rem;
 	box-shadow: 0 0px 3px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
