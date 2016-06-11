@@ -17,11 +17,15 @@
     line-height: 1;
 }
 
+[data-control] {
+    padding: 10px;
+}
+
 [data-control],
 [data-content] > * {
     border-bottom: 1px solid #525050;
-    padding: 10px;
 }
+
 
 [data-content] [data-accordion] {
     border: 0;

@@ -2,67 +2,40 @@
 var currentPlace = {},
 	wRequestUrl = "",
 	responds = {},
-	geoRespond,
-	appId = "5fb8da6c7819d24192882b5b6934556d",
+	geoRespond = {},
+	searchResult = {},
+	wAppId = "5fb8da6c7819d24192882b5b6934556d",
+	fahrenheitCountries = ['United States', 'Bahamas', 'Belize', 'Cayman Islands', 'Palau', 'Puerto Rico', 'Guam', 'Ukraine'],
+	fahrenheitCountry,
 	isCelsius,
 	windUnit,
 	fetcher,
 	fetcherMaker,
-	storageFlag,
-	searchResult = {};
+	storageFlag;
 
 
-
-
-
-var getCoordinates = (function () {
-	var geoposition,
-		options = {
-			maximumAge: 1000,
-			timeout: 15000,
-			enableHighAccuracy: false
-		};
-
-	function showError(error) {
-		switch (error.code) {
-		case error.PERMISSION_DENIED:
-			throw "User denied the request for Geolocation.";
-		case error.POSITION_UNAVAILABLE:
-			throw "Location information is unavailable.";
-		case error.TIMEOUT:
-			throw "The request to get user location timed out.";
-		case error.UNKNOWN_ERROR:
-			throw "An unknown error occurred.";
-		default:
-			throw "Unknown error";
-		}
-	}
-
-	function _onSuccess(callback, position) {
-		console.log('LAT: ' + position.coords.latitude + ' - LON: ' +  position.coords.longitude);
-		currentPlace = position.coords;
-		reverseGeo();
-		callback();
-	}
-
-	function _onError(callback, error) {
-		callback();
-		showError(error);
-
-	}
-
-	function _getLocation(callback) {
-		navigator.geolocation.getCurrentPosition(
-			_onSuccess.bind(this, callback),
-			_onError.bind(this, callback),
-			options
-		);
-	}
-
-	return {
-		location: _getLocation
+function getCoordinates() {
+	var options = {
+		maximumAge: 1000,
+		timeout: 15000,
+		enableHighAccuracy: false
 	};
-}());
+	var deferred = $.Deferred()
+
+	function success(position) {
+		currentPlace = position.coords;
+		deferred.resolve();
+	};
+
+	function error(err) {
+		console.warn('ERROR(' + err.code + '): ' + err.message);
+		deferred.reject();
+	};
+
+	navigator.geolocation.getCurrentPosition(success, error, options);
+
+	return deferred.promise();
+}
 
 /*
 	==================================================================================================================
@@ -71,30 +44,21 @@ var getCoordinates = (function () {
 */
 
 function reverseGeo() {
-	console.log(searchResult);
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude;
 	var geoRequestUrl = "https://api.teleport.org/api/locations/"
 		+ lat + ","	+ lon
 		+ "/?embed=location%3Anearest-cities%2Flocation%3Anearest-city";
-	console.log(geoRequestUrl);
 
-	$.ajax({
+	return $.ajax({
 		url: geoRequestUrl,
 		type: "GET",
 		dataType: "json",
 		success: function (geo) {
 			geoRespond = geo;
-			console.log(geoRespond);
-		},
-		error: function (xhr, status, errorThrown) {
-			console.log("reverseGeo: " + status);
-		},
-		complete: [function (xhr, status) {
-			console.log("reverseGeo: " + status);
-		},
-			function () {getWeather() }
-			]
+		// },
+		// error: function (xhr, status, errorThrown) {
+		}
 	})
 }
 
@@ -108,36 +72,16 @@ function getWeather() {
 	clearData();
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude
-	wRequestUrl = "https://api.forecast.io/forecast/" + appId + "/" + lat + "," + lon;
-	console.log(wRequestUrl);
+	wRequestUrl = "https://api.forecast.io/forecast/" + wAppId + "/" + lat + "," + lon;
 
-	$.ajax({
+	return $.ajax({
 		url: wRequestUrl,
 		type: "GET",
 		dataType: "jsonp",
-		success: [function (json) {
+		success: function (json) {
 				responds = json;
-				console.log("Inside getWeather: ");
-				console.log(responds);
-			},
-			function() {
-				fetcher = fetcherMaker(responds);
-				console.log('fetcher inside AJAX:');
-				console.log(fetcher);
-			},
-			function() {
-				showCurrentWeather();
-				showShortForecast();
-				showLongForecast();
-				// console.log('I invoked fetcher');
-			}
-		],
-		error: function (xhr, status, errorThrown) {
-			console.log("getWeather: " + status);
-		},
-		complete: function (xhr, status) {
-			console.log("getWeather: " + status);
-			//showWeather()
+		// },
+		// error: function (xhr, status, errorThrown) {
 		}
 	})
 }
@@ -154,7 +98,7 @@ fetcherMaker = function (weatherdata) {
 		timeRange: 		'currently', 'hourly' or 'daily'
 		isCelsius: 		true - Celsius, false - Farenheit
 		apparent: 		true - 'feels like' temp; false - real temp
-		dataInstance: 	number of hour or day (empty string in 'current' case)
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 	*/
 	function getTemp(timeRange, isCelsius, apparent, dataInstance) {
 		var tempCurr, tempMax, tempMin, tempDaily, temp, tempOption;
@@ -181,7 +125,6 @@ fetcherMaker = function (weatherdata) {
 
 		if (isCelsius === true) {
 			tempCurr = tempSign(Math.round((tempCurr - 32) / 1.8));
-			// console.log('BLIP!!!!');
 			temp = tempSign(Math.round((temp - 32) / 1.8));
 			tempMax = tempSign(Math.round((tempMax - 32) / 1.8));
 			tempMin = tempSign(Math.round((tempMin - 32) / 1.8));
@@ -189,7 +132,6 @@ fetcherMaker = function (weatherdata) {
 			tempDaily = tempMin + ".." + tempMax;
 		} else if (isCelsius === false) {
 			tempCurr = Math.round(tempCurr);
-			// console.log('BLOP!!!!');
 			temp = Math.round(temp);
 			tempMax = Math.round(tempMax);
 			tempMin = Math.round(tempMin);
@@ -208,7 +150,7 @@ fetcherMaker = function (weatherdata) {
 	/*
 		Get cloud cover from JSON
 		timeRange: 		'currently', 'hourly' or 'daily'
-		dataInstance: 	number of hour or day (empty string in 'current' case)
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 	*/
 	function getCloudCover(timeRange, dataInstance) {
 		var cloudiness;
@@ -224,7 +166,7 @@ fetcherMaker = function (weatherdata) {
 	/*
 		Get humidity from JSON
 		timeRange: 		'currently', 'hourly' or 'daily'
-		dataInstance: 	number of hour or day (empty string in 'current' case)
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 	*/
 	function getHumidity(timeRange, dataInstance) {
 		var humidity;
@@ -240,7 +182,7 @@ fetcherMaker = function (weatherdata) {
 	/*
 		Get wind speed from JSON
 		timeRange: 		'currently', 'hourly' or 'daily'
-		dataInstance: 	number of hour or day (empty string in 'current' case)
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 		unit:			' m/s', ' km/h', ' mph'
 	*/
 	function getWindSpeed(timeRange, unit, dataInstance) {
@@ -263,7 +205,7 @@ fetcherMaker = function (weatherdata) {
 	/*
 		Get wind direction from JSON and convert it
 		timeRange: 		'currently', 'hourly' or 'daily'
-		dataInstance: 	number of hour or day (empty string in 'current' case)
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 	*/
 	function getWindDirection(timeRange, dataInstance) {
 		var direction, wDirection;
@@ -308,7 +250,7 @@ fetcherMaker = function (weatherdata) {
 	/*
 		Get wind time and date from JSON
 		timeRange: 		'hourly' or 'daily'
-		dataInstance: 	number of hour or day
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
 	*/
 	function getTimepoint(timeRange, dataInstance) {
 		var timestmp = new Date((weatherdata[timeRange].data[dataInstance].time) * 1000);
@@ -319,6 +261,11 @@ fetcherMaker = function (weatherdata) {
 		}
 	}
 
+	/*
+		Get weather condition from JSON and convert it to an icon
+		timeRange: 		'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
+	*/
 	function getIcon (timeRange, dataInstance) {
 		var icon, symbol;
 		if (timeRange === "currently") {
@@ -331,6 +278,11 @@ fetcherMaker = function (weatherdata) {
 		return symbol
 	}
 
+	/*
+		Get precipitation probability from JSON
+		timeRange: 		'hourly' or 'daily'
+		dataInstance: 	number of hour or day (empty string or nothing in 'current' case)
+	*/
 	function getProbability(timeRange, dataInstance) {
 		var probability;
 		if ((timeRange === "hourly") || (timeRange === "daily")) {
@@ -339,9 +291,54 @@ fetcherMaker = function (weatherdata) {
 		return probability+"%"
 	}
 
+	/*
+		Get brief information about weather from JSON
+		timeRange: 		'hourly' or 'daily'
+		unit:			' m/s', ' km/h', ' mph'
+		isCelsius: 		true - Celsius, false - Farenheit
+	*/
+	function getBriefInfo(timeRange, unit, isCelsius) {
 
-	console.log('Inside fetcherMaker');
-	console.log(weatherdata);
+		function tempConverter(inputString) {
+			var outputString = inputString;
+			var dirtyValue = inputString.match(/-?\d+°\w/);
+			if (dirtyValue) {
+				var valueF = Number.parseInt(dirtyValue, 10);
+				var valueC = Math.round((valueF - 32) / 1.8);
+				outputString = inputString.replace(dirtyValue, valueC + '°C');
+			}
+			return outputString;
+		}
+
+		function lengthConverter(inputString) {
+			var outputString = inputString;
+			function converter(element, index, array) {
+				element = Math.round(element*2.54);
+				return element;
+			}
+			var parenthesis = inputString.match(/\(.*\)/);
+			if (parenthesis) {
+				parenthesis = parenthesis.toString();
+				var values = parenthesis.match(/\d+/g);
+		  		var x = values.map(converter);
+				for(var i = 0; i < x.length; i++) {
+		  			outputString = inputString.replace(values[i], x[i]);
+				}
+				outputString = outputString.replace(/in.\)/g, 'centimeters)');
+			}
+			return outputString;
+		}
+
+		var summary = weatherdata[timeRange].summary;
+		if (isCelsius === true) {
+			summary = tempConverter(summary);
+		}
+		if (unit === 'm/s' || 'km/h') {
+			summary = lengthConverter(summary);
+		}
+		return summary;
+	}
+
 	return {
 		fetchTemp: getTemp,
 		fetchCloudCover: getCloudCover,
@@ -350,7 +347,8 @@ fetcherMaker = function (weatherdata) {
 		fetchWindDirection: getWindDirection,
 		fetchTimepoint: getTimepoint,
 		fetchIcon: getIcon,
-		fetchProbability: getProbability
+		fetchProbability: getProbability,
+		fetchBriefInfo: getBriefInfo
 	}
 }
 
@@ -365,11 +363,7 @@ function showCurrentWeather() {
 	var city = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"].name;
 	var adminLevel = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:admin1_division"].name
 	var country = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name
-	console.log("Inside showCurrentWeather: ");
-	console.log(responds);
-	console.log(fetcher);
-	console.log('isCelsius: ' + isCelsius);
-	console.log(geoRespond);
+	// outerScopeCountry = country;
 
 	if (isCelsius === true) {
 		tempValue = "°C";
@@ -395,9 +389,10 @@ function showCurrentWeather() {
 		+ " " + fetcher.fetchWindDirection('currently')
 		+ "</p>");
 
-	$(".dayBrief").append(responds.hourly.summary);
+	$(".dayBrief").append(fetcher.fetchBriefInfo('hourly', windUnit, isCelsius));
+	$(".weekBrief").append(fetcher.fetchBriefInfo('daily', windUnit, isCelsius));
 
-	$(".weekBrief").append(responds.daily.summary);
+
 }
 
 /*
@@ -428,8 +423,6 @@ function showShortForecast () {
 
 
 function showLongForecast () {
-	// isCelsius = localStorage.isCelsius || isCelsius;
-	// console.log('CELSIUS????? - ' + isCelsius);
 	$(".longInstance").each(function (index) {
 		$(this).append("<p class='time'>" + fetcher.fetchTimepoint('daily', index+1) + "</p>")
 			.append("<p>" + fetcher.fetchTemp('daily', isCelsius, false, index+1) + "</p>")
@@ -460,42 +453,17 @@ function clearData () {
 	==================================================================================================================
 */
 
-function storageAvailability(type) {
-	try {
-		var storage = window[type],
-			x = '__storage_test__';
-		storage.setItem(x, x);
-		storage.removeItem(x);
-		return true;
-	}
-	catch(e) {
-		return false;
-	}
-}
-
 
 function togglesInitialState() {
 
-//check Local Storage availability
-	if(storageAvailability('localStorage')) {
-		storageFlag = true;
+	function setTemperatureToggler() {
+		if (isCelsius === true)
+			$('#first_toggle-2').prop('checked', 'checked')
+		else
+			$('#second_toggle-2').prop('checked', 'checked')
 	}
 
-	if(storageFlag === true) {
-
-//Initialize temperature
-		isCelsius = localStorage.isCelsius || true;
-		if(localStorage.isCelsius === 'true' || isCelsius === true) {
-			$('#first_toggle-2').prop('checked', 'checked');
-			isCelsius = true;
-		}
-		else if(localStorage.isCelsius === 'false' || isCelsius === false){
-			$('#second_toggle-2').prop('checked', 'checked');
-			isCelsius = false;
-		}
-
-//Initialize wind speed
-		windUnit = localStorage.windUnit || 'm/s';
+	function setWindToggler() {
 		if(localStorage.windUnit === 'm/s' || windUnit === 'm/s') {
 			$('#first_toggle').prop('checked', 'checked');
 			windUnit = 'm/s';
@@ -507,15 +475,75 @@ function togglesInitialState() {
 			$('#third_toggle').prop('checked', 'checked');
 			windUnit = 'mph';
 		}
+	}
 
-//default temperature and wind units if local storage isn't available
+	//check Local Storage availability
+	function storageAvailability(type) {
+		try {
+			var storage = window[type],
+			x = '__storage_test__';
+			storage.setItem(x, x);
+			storage.removeItem(x);
+			return true;
+		}
+		catch(e) {
+			return false;
+		}
+	}
+
+	if(storageAvailability('localStorage')) {
+		storageFlag = true;
+	} else {
+		storageFlag = false;
+	}
+
+	if(storageFlag === true) {
+
+	//Decision - Fahrenheit or Celsius
+		if(localStorage.isCelsius !== undefined)
+			isCelsius = localStorage.isCelsius === 'true'
+		else if (fahrenheitCountry !== undefined) {
+				isCelsius = !fahrenheitCountry;
+			}
+			else {
+				isCelsius = true
+			}
+
+		setTemperatureToggler();
+
+	//Initialize wind speed
+		windUnit = localStorage.windUnit || windUnit;
+		setWindToggler();
+
+	//default temperature and wind units if local storage isn't available
 	} else if(storageFlag === false) {
-		$('#first_toggle-2').prop('checked', 'checked');
-		isCelsius = true;
-		$('#first_toggle').prop('checked', 'checked');
-		isCelsius = 'm/s';
+
+		setTemperatureToggler();
+		setWindToggler();
 	}
 }
+
+//check if user's country use Fahrenheit scale
+function isFahrenheitCountry() {
+	var country = geoRespond._embedded["location:nearest-cities"][0]._embedded["location:nearest-city"]["_links"]["city:country"].name
+	if (fahrenheitCountries.indexOf(country) == -1) {
+		fahrenheitCountry = false;
+		isCelsius = true;
+		windUnit = 'm/s';
+	} else {
+		fahrenheitCountry = true;
+		isCelsius = false;
+		windUnit = 'mph';
+	}
+}
+
+function redraw() {
+	clearData();
+	showCurrentWeather();
+	showShortForecast();
+	showLongForecast();
+}
+
 
 /*=========================================================
   =========================================================
@@ -526,17 +554,21 @@ function togglesInitialState() {
 
 
 $(document).ready(function () {
-	togglesInitialState();
+
+	getCoordinates().then(reverseGeo)
+		.then(getWeather)
+		.done(function() {
+			console.log(currentPlace, '\n', geoRespond, '\n', responds);
+			fetcher = fetcherMaker(responds);
+			isFahrenheitCountry();
+			togglesInitialState();
+			redraw();
+		});
+
+	// togglesInitialState();
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
 		searchResult = value;
 		reverseGeo();
-	});
-
-//ask user and get current coordinates from browser
-	getCoordinates.location(function () {
-		console.log('Main, after getCoordinates');
-		// $('.overlay').css('display', 'none');
-
 	});
 
 //make accordion for forecasts
@@ -558,10 +590,7 @@ $(document).ready(function () {
 				localStorage.isCelsius = false
 			}
 		}
-		clearData();
-		showCurrentWeather();
-		showShortForecast();
-		showLongForecast();
+		redraw();
 	});
 
 //wind speed value toggler
@@ -569,20 +598,22 @@ $(document).ready(function () {
 		$('.my-input').val("");
 		if ($("#first_toggle").prop("checked")) {
 			windUnit = 'm/s';
-			localStorage.windUnit = 'm/s'
+			if(storageFlag === true) {
+				localStorage.windUnit = 'm/s'
+			}
 		} else if ($("#second_toggle").prop("checked")) {
 			windUnit = 'km/h';
-			localStorage.windUnit = 'km/h'
+			if(storageFlag === true) {
+				localStorage.windUnit = 'km/h'
+			}
 		} else if ($("#third_toggle").prop("checked")) {
 			windUnit = 'mph';
-			localStorage.windUnit = 'mph'
+			if(storageFlag === true) {
+				localStorage.windUnit = 'mph'
+			}
 		}
-		console.log(windUnit)
-		clearData();
-		showCurrentWeather();
-		showShortForecast();
-		showLongForecast();
-
+		console.log(windUnit);
+		redraw();
 	});
 
 	$(".info").on("click", function() {
