@@ -1,3 +1,9 @@
+/*
+	Please, don't steal my appID - I use free account with requests limitation.
+	You can create account and get your own appID here: https://developer.forecast.io/
+*/
+
+//Wrap it all in IIFE to prevent global scope pollution with my variables
 (function() {
 var currentPlace = {},
 	wRequestUrl = "",
@@ -631,30 +637,3 @@ $(document).ready(function () {
 });
 
 }())
-
-/*
-Reverse geocoding:
-https://api.opencagedata.com/geocode/v1/json?q=47.959123999999996+37.7931349&language=en&no_annotations=1&key=1331493ff40e8a6dc97e7346b63be27e
-https://api.teleport.org/api/locations/50.315796,30.300249/?embed=location%3Anearest-cities%2Flocation%3Anearest-city
-
-1 - https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
-2- https://maps.googleapis.com/maps/api/geocode/json?latlng=47.958162099999996,37.7931768&key=AIzaSyAwdgGurtsTzr0te968d4nK2quXtTiBFSM
-3 - https://console.developers.google.com/home/dashboard?project=weather-app-1227
-
-Weather report:
-https://developer.forecast.io/docs/v2#forecast_call
-
-autocomplete:
-http://geobytes.com/free-ajax-cities-jsonp-api/
-https://developers.google.com/maps/documentation/javascript/places-autocomplete
-
-https://developers.teleport.org/api/getting_started/#search_name
-https://github.com/teleport/autocomplete
-
-http://jqueryui.com/autocomplete/#remote-jsonp
-
-accordion: http://vctrfrnndz.github.io/jquery-accordion/
-
-icons: https://erikflowers.github.io/weather-icons/
-
-*/
