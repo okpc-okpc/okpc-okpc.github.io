@@ -578,7 +578,6 @@ $(document).ready(function () {
 			.done(function() {
 				console.log(currentPlace, '\n', geoRespond, '\n', responds);
 				fetcher = fetcherMaker(responds);
-				isFahrenheitCountry();
 				togglesInitialState();
 				redraw();
 		});
