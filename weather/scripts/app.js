@@ -571,10 +571,17 @@ $(document).ready(function () {
 			redraw();
 		});
 
-	// togglesInitialState();
+	// search widget
 	TeleportAutocomplete.init('.my-input').on('change', function(value) {
 		searchResult = value;
-		reverseGeo();
+		reverseGeo().then(getWeather)
+			.done(function() {
+				console.log(currentPlace, '\n', geoRespond, '\n', responds);
+				fetcher = fetcherMaker(responds);
+				isFahrenheitCountry();
+				togglesInitialState();
+				redraw();
+		});
 	});
 
 //make accordion for forecasts

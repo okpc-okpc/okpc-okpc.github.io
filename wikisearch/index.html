@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>wikiSearch</title>
+	<link rel='stylesheet' href='css/style.css'/>
+</head>
+<body>
+	<form action="https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srprop=snippet&srinfo=&srsearch=">
+		<label for="searcher">Search:</label>
+		<input id="searcher" type="text" placeholder="search...">
+		<input type="submit" value="searchItem">
+		<button formaction="https://en.wikipedia.org/wiki/Special:Random" formtarget="_blank">random</button>
+	</form>
+	<script src="scripts/app.js"></script>
+</body>
+</html>
