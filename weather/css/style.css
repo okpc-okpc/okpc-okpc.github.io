@@ -180,7 +180,8 @@ h1 {
 	margin: .8rem auto;
 	padding: 0;
 	border-bottom: 0!important;
-	background-color: #EFD9B5;
+	/*background-color: #EFD9B5;*/
+	background-color: #e9e1ab;
 }
 
 .currentIcon > i {
