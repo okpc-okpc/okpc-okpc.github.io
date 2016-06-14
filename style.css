@@ -9,7 +9,8 @@ html {
 }
 
 body {
-	background: #fdfcf4;
+	/*background: #fdfcf4;*/
+	background: #e4e3dc;
 }
 
 .container {
@@ -56,7 +57,8 @@ h1 {
 .main {
 	display:flex;
 	flex-direction: column;
-	background: #fafaff;
+	/*background: #fafaff;*/
+	background: #fbf9f2;
 }
 
 /*aside {
@@ -170,7 +172,8 @@ img {
 }
 
 .projectLink {
-	background: rgba(28, 89, 134, 0.75);
+	/*background: rgba(28, 89, 134, 0.75);*/
+	background: #566270;
 	padding: .6rem;
 	text-decoration: none;
 	color: #fff;
