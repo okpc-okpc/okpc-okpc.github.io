@@ -24,70 +24,30 @@
 	<!-- Facebook SDK -->
 	<script>
 		window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '756807307754119', // App ID
-    status     : true,    // check login status
-    cookie     : true,    // enable cookies to allow the server to access the session
-    xfbml      : true,     // parse page for xfbml or html5 social plugins like login button below
-    version    : 'v2.5',  // Specify an API version
-  });
+    		FB.init({
+    		  appId      : '756807307754119',
+    		  xfbml      : true,
+    		  version    : 'v2.7'
+    		});
+  		};
 
-  $(document).on('click', 'button', function() {
-	  FB.login(function(response) {
-      if (response.authResponse) {
-        console.log('Welcome!  Fetching your information.... ');
-
-  	   FB.api('/me/feed',
-               'post',
-               { caption: 'Privet',
-                 display:'popup',
-                 picture: 'https://scontent-frt3-1.xx.fbcdn.net/hphotos-xtp1/v/t1.0-9/12088060_1666501866926831_9203371994134724273_n.jpg?oh=2496d4f0afa12821acac0ebb3b2d9789&oe=576F8988',
-                 privacy: {'value':'ALL_FRIENDS'},
-                 name: "Яскраво",
-                 description: "«SIMO» - це сервіс для Вашого мобільного пристрою, за допомогою якого зображення оживає. Завантажуй безкоштовно на Google Play мобільний додаток на телефон або планшет.",
-                 link : "http://www.uascravo.mobi"
-               },
-        function(response) {
-    	    if (!response || response.error) {
-            console.log(response);
-            alert('Error occured');
-          } else {
-            $('#alertModal').modal('show');
-            setTimeout(function() {
-              window.location.href = "http://yaskravo.mobi/coupon.html?installationid=test&couponGlobalId=fd1dabe1-679f-4e7c-b029-a56158f31269";
-            }, 3000);
-          }
-        });
-      } else {
-        console.log('User cancelled login or did not fully authorize.');
-      }
-    },
-    {
-      scope: 'publish_actions',
-      auth_type: 'rerequest'
-    });
-
-	  FB.api(
-      "/me/permissions",
-      function (response) {
-        if (response && !response.error) {
-          console.log(response);
-        }
-      }
-    );
-  });
-};
-
-(function(d, s, id){
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/uk_UA/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+  		(function(d, s, id){
+  		   var js, fjs = d.getElementsByTagName(s)[0];
+  		   if (d.getElementById(id)) {return;}
+  		   js = d.createElement(s); js.id = id;
+  		   js.src = "//connect.facebook.net/uk_UA/sdk.js";
+  		   fjs.parentNode.insertBefore(js, fjs);
+  		 }(document, 'script', 'facebook-jssdk'));
 	</script>
 
 <button>share</button>
+
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
 
 </body>
 </html>
