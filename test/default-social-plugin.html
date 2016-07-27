@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>sharing experiment</title>
+	<script src="app.js"></script>
+	<!-- read here about Open Graph markup: -->
+	<!-- https://developers.facebook.com/docs/sharing/webmasters#markup -->
+	<meta property="og:app_id"             content="756807307754119" />
+	<meta property="og:url"                content='http://yascravo.mobi' />
+	<!-- <meta property="og:type"               content="article" /> -->
+	<meta property="og:title"              content="Post title" />
+	<meta property="og:description"        content="Post description. Facebook says it usually between 2 and 4 sentences" />
+	<meta property="og:site_name"          content="site name" />
+	<meta property="og:image"              content="thumb-sharing.png" />
+	<meta property="og:locale"             content="uk_UA" />
+	<meta property="og:locale:alternate"   content="ru_RU" />
+	<meta property="og:locale:alternate"   content="en_US" />
+
+</head>
+<body>
+	<!-- Facebook SDK -->
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId   :'756807307754119',
+				xfbml   :true,
+				version :'v2.5'
+			});
+
+			FB.ui({
+					method: 'share',
+					mobile_iframe: true,
+					href: 'http://yascravo.mobi',
+				},
+				function(response){
+					if (response && !response.error_message) {
+						console.log('Posting succesfully completed.');
+					} else {
+						console.log('Error while posting.');
+					}
+				}
+			);
+		};
+
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/uk_UA/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<div class="sharing-box">
+		<p>Hi there!</p>
+		<!-- Read about Facebook plugins here: https://developers.facebook.com/docs/plugins -->
+		<div class="fb-like"
+			 data-href="http://yascravo.mobi"
+			 data-layout="standard"
+			 data-action="like"
+			 data-size="small"
+			 data-show-faces="true"
+			 data-share="true">
+		</div>
+
+		<div class="fb-share-button"
+			 data-href="http://yascravo.mobi"
+			 data-layout="button_count"
+			 data-size="small"
+			 data-mobile-iframe="false">
+			<a class="fb-xfbml-parse-ignore"
+			 	target="_blank"
+			 	href="https://www.facebook.com/sharer/sharer.php?u=http://yascravo.mobi">
+			 	Share
+			</a>
+		</div>
+
+	</div>
+</body>
+</html>
