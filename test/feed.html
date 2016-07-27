@@ -25,24 +25,25 @@
 	<script>
 		window.fbAsyncInit = function() {
 			FB.init({
-    		  appId      : '756807307754119',
-    		  xfbml      : true,
-    		  version    : 'v2.5'
+    			appId      : '756807307754119',
+    			xfbml      : true,
+    			version    : 'v2.5'
     		});
+
+			$('.fb-share').on('click',function() {
+				FB.ui({
+					app_id: '756807307754119',
+					method: 'share',
+					href: 'https://yascravo.mobi',
+					display: 'popup',
+					picture: 'http://placehold.it/300x200',
+					name: 'Simo!',
+					caption: 'this is a caption',
+					description: 'and this is a description'
+				}, function(response){});
+			})
 		};
 
-		$('button').on('click', function () {
-			FB.ui({
-				app_id: '756807307754119',
-				method: 'share',
-				link: 'https://yascravo.mobi',
-				display: 'popup',
-				picture: 'http://placehold.it/300x200',
-				name: 'Simo!',
-				caption: 'this is a caption',
-				description: 'and this is a description'
-			}, function(response){});
-		})
 
   		(function(d, s, id){
   		   var js, fjs = d.getElementsByTagName(s)[0];
@@ -51,9 +52,10 @@
   		   js.src = "https://connect.facebook.net/uk_UA/sdk.js";
   		   fjs.parentNode.insertBefore(js, fjs);
   		 }(document, 'script', 'facebook-jssdk'));
+
 	</script>
 
-<button>share</button>
+<button class='fb-share'>share</button>
 
 <div
   class="fb-like"
