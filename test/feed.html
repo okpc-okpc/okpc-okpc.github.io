@@ -24,18 +24,31 @@
 	<!-- Facebook SDK -->
 	<script>
 		window.fbAsyncInit = function() {
-    		FB.init({
+			FB.init({
     		  appId      : '756807307754119',
     		  xfbml      : true,
-    		  version    : 'v2.7'
+    		  version    : 'v2.5'
     		});
-  		};
+		};
+
+		$('button').on('click', function () {
+			FB.ui({
+				app_id: '756807307754119',
+				method: 'share',
+				link: 'https://yascravo.mobi',
+				display: 'popup',
+				picture: 'http://placehold.it/300x200',
+				name: 'Simo!',
+				caption: 'this is a caption',
+				description: 'and this is a description'
+			}, function(response){});
+		})
 
   		(function(d, s, id){
   		   var js, fjs = d.getElementsByTagName(s)[0];
   		   if (d.getElementById(id)) {return;}
   		   js = d.createElement(s); js.id = id;
-  		   js.src = "//connect.facebook.net/uk_UA/sdk.js";
+  		   js.src = "https://connect.facebook.net/uk_UA/sdk.js";
   		   fjs.parentNode.insertBefore(js, fjs);
   		 }(document, 'script', 'facebook-jssdk'));
 	</script>
