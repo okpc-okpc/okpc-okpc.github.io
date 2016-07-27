@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>sharing experiment</title>
+	<script src="app.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- read here about Open Graph markup: -->
+	<!-- https://developers.facebook.com/docs/sharing/webmasters#markup -->
+	<meta property="og:app_id"             content="756807307754119" />
+	<meta property="og:url"                content='http://yascravo.mobi' />
+	<!-- <meta property="og:type"               content="article" /> -->
+	<meta property="og:title"              content="Post title" />
+	<meta property="og:description"        content="Post description. Facebook says it usually between 2 and 4 sentences" />
+	<meta property="og:site_name"          content="site name" />
+	<meta property="og:image"              content="/thumb-sharing.png" />
+	<meta property="og:locale"             content="uk_UA" />
+	<meta property="og:locale:alternate"   content="ru_RU" />
+	<meta property="og:locale:alternate"   content="en_US" />
+
+</head>
+<body>
+	<!-- Facebook SDK -->
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId   :'756807307754119',
+				xfbml   :true,
+				version :'v2.5'
+			});
+
+
+
+		};
+
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/uk_UA/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		$('button').on.('click', function() {
+			FB.ui({
+				method: 'feed',
+				link: 'http://yascravo.mobi',
+				caption: 'Here some text that should be in the post',
+			}, function(response){});
+		})
+	</script>
+
+<button>share</button>
+
+</body>
+</html>
