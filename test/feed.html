@@ -30,6 +30,13 @@
 				version :'v2.5'
 			});
 
+			$('button').on('click', function() {
+				FB.ui({
+					method: 'feed',
+					link: 'http://yascravo.mobi',
+					caption: 'Here some text that should be in the post',
+				}, function(response){});
+		})
 
 
 		};
@@ -42,13 +49,7 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
-		$('button').on('click', function() {
-			FB.ui({
-				method: 'feed',
-				link: 'http://yascravo.mobi',
-				caption: 'Here some text that should be in the post',
-			}, function(response){});
-		})
+
 	</script>
 
 <button>share</button>
