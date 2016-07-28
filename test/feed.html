@@ -4,8 +4,33 @@
 	<meta charset="UTF-8">
 	<title>sharing experiment</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<!-- read here about Open Graph markup: -->
-	<!-- https://developers.facebook.com/docs/sharing/webmasters#markup -->
+	<style type="text/css">
+		.fb-share {
+			text-decoration: none;
+			color: #eee;
+			background: #3b5998;
+			background-image: linear-gradient(#4e69a2, #3b5998 50%);
+			display: inline-block;
+			width: 200px;
+			height: 50px;
+			text-align: center;
+			padding-top: 20px;
+			font-family: 'Segoe UI', helvelica, sans-serif;
+			font-size: 20px;
+			text-transform: uppercase;
+			font-weight: 600;
+			border-radius: 2px;
+			box-shadow: 2px 2px 2px #444;
+		}
+
+		.fb-share:hover {
+			background: #224898;
+		}
+
+		.fb-share:active {
+			box-shadow: 1px 1px 1px #444;
+		}
+	</style>
 
 </head>
 <body>
@@ -43,7 +68,7 @@
 
 	</script>
 
-<button class='fb-share'>share</button>
+<a href='#' class='fb-share'>поширити</a>
 
 </body>
 </html>
