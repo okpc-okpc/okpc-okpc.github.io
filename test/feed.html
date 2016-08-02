@@ -71,6 +71,14 @@
 					description: 'and this is a description'
 				}, function(response){
 					console.log(response);
+					FB.api(
+  						'/{response}',
+    					function (response) {
+      						if (response && !response.error) {
+        						console.log(response);
+      						}
+    					}
+					);
 				});
 			})
 		};
