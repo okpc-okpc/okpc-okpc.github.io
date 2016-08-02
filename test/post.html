@@ -57,21 +57,24 @@
     		});
 
 			$('.fb-share').on('click',function() {
-				FB.api(
-					'/me/feed',
-					{
-						caption: 'this is a caption',
-						descrintion: 'this is a description',
-						link: 'http://yaskravo.mobi/',
-						message: 'this is a message',
-						name: 'probably name of the link',
-						picture: 'http://placehold.it/300x200',
-						privacy: {
-							value: 'SELF'
-						}
-					}, function(response){
-						console.log(response);
-					});
+				FB.login(function(response) {
+    				if (response.authResponse) {
+						FB.api(
+							'/me/feed',
+							{
+								caption: 'this is a caption',
+								descrintion: 'this is a description',
+								link: 'http://yaskravo.mobi/',
+								message: 'this is a message',
+								name: 'probably name of the link',
+								picture: 'http://placehold.it/300x200',
+								privacy: {
+									value: 'SELF'
+								}
+							}, function(response){
+								console.log(response);
+							});
+					}
 			})
 		};
 
