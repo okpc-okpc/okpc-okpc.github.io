@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>sharing experiment</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css'/>
+	<style type="text/css">
+		.container {
+			padding: 50px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.fb-share {
+			text-decoration: none;
+			color: #eee;
+			background: #3b5998;
+			background-image: linear-gradient(#4e69a2, #3b5998 50%);
+			display: inline-block;
+			width: 200px;
+			height: 50px;
+			text-align: center;
+			padding-top: 25px;
+			font-family: 'Segoe UI', helvelica, sans-serif;
+			font-size: 20px;
+			text-transform: uppercase;
+			font-weight: 600;
+			border-radius: 2px;
+			box-shadow: 2px 2px 2px #444;
+			-webkit-user-select: none;
+			   -moz-user-select: none;
+			    -ms-user-select: none;
+			        user-select: none;
+
+		}
+
+		.fb-share:hover {
+			background: #224898;
+		}
+
+		.fb-share:active {
+			box-shadow: 1px 1px 1px #444;
+		}
+	</style>
+
+</head>
+<body>
+	<!-- Facebook SDK -->
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+    			appId      : '756807307754119',
+    			xfbml      : true,
+    			version    : 'v2.5'
+    		});
+
+			$('.fb-share').on('click',function() {
+				FB.api(
+					'/me/feed',
+					{
+						caption: 'this is a caption',
+						descrintion: 'this is a description',
+						link: 'http://yaskravo.mobi/',
+						message: 'this is a message',
+						name: 'probably name of the link',
+						picture: 'http://placehold.it/300x200',
+						privacy: {
+							value: 'SELF'
+						}
+					}, function(response){
+						console.log(response);
+					});
+			})
+		};
+
+
+  		(function(d, s, id){
+  		   var js, fjs = d.getElementsByTagName(s)[0];
+  		   if (d.getElementById(id)) {return;}
+  		   js = d.createElement(s); js.id = id;
+  		   js.src = "https://connect.facebook.net/uk_UA/sdk.js";
+  		   fjs.parentNode.insertBefore(js, fjs);
+  		 }(document, 'script', 'facebook-jssdk'));
+
+	</script>
+<div class="container">
+	<a href='#' class='fb-share'>поширити</a>
+</div>
+
+</body>
+</html>
