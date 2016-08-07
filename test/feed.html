@@ -63,22 +63,11 @@
 					href: 'http://yaskravo.mobi',
 					display: 'popup',
 					picture: 'http://placehold.it/300x200',
-					privacy: {
-						value: 'EVERYONE'
-					},
 					name: 'Simo',
 					caption: 'this is a caption',
 					description: 'and this is a description'
 				}, function(response){
 					console.log(response);
-					FB.api(
-  						'/{response}',
-    					function (response) {
-      						if (response && !response.error) {
-        						console.log(response);
-      						}
-    					}
-					);
 				});
 			})
 		};
