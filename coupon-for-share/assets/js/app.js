@@ -1,5 +1,7 @@
 var infoObject = {};
 var couponObject = {};
+var serviceId = '4';
+var installationId = '123123';
 function getIds(urlParam, wantedItem) {
 
 	var url = urlParam,
@@ -119,8 +121,7 @@ $(document).ready(function() {
 	// var currentUrlParam = window.location.search;
 	// var installationId = getIds(currentUrlParam, 'installationnid');
 	// var couponGlobalId = getIds(currentUrlParam, 'couponglobalid');
-	var serviceId = '4',
-		installationId = '123123';
+
 
 	getInitialInfo(installationId, serviceId).done(function() {
 		initialPopulate();
