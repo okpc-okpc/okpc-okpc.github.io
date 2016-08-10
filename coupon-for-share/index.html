@@ -30,6 +30,12 @@
 					description: 'and this is a description'
 				}, function(response){
 					console.log(response);
+					if (response) {
+						getCouponCode(installationId, serviceId).done(function() {
+							codePopulate();
+							showCode();
+						});
+					}
 				});
 			})
 		};
