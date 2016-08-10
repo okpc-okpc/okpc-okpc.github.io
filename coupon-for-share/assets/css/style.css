@@ -200,9 +200,8 @@ html, body {
 }
 
 .show-rules {
-	position: fixed;
-	top: -15px;
-	right: 20px;
+	position: relative;
+	right: -60%;
 }
 
 .fb-share {
@@ -225,7 +224,6 @@ html, body {
 	   -moz-user-select: none;
 	    -ms-user-select: none;
 	        user-select: none;
-
 }
 .fb-share:hover {
 	background: #224898;
