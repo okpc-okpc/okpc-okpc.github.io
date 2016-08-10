@@ -1,0 +1,235 @@
+html, body {
+	/*height: 100%;*/
+	background: transparent;
+}
+
+.wrapper {
+	min-height: 100%;
+}
+
+.container {
+	width: 65%;
+	max-width: 425px;
+	margin: 10% auto 0;
+	text-align: center;
+	/*background: goldenrod;*/
+}
+
+.coupon-img, .coupon-share, .coupon-code, .coupon-invalid, .service-invalid {
+	max-width: 100%;
+	/*background: salmon;*/
+}
+
+.coupon-share, .coupon-code, .coupon-invalid, .service-invalid {
+	height: 100px;
+}
+
+.coupon-img {
+	margin: 20px 0;
+}
+
+.get-in {
+	-webkit-transform-origin: center center;
+	    -ms-transform-origin: center center;
+	        transform-origin: center center;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-direction: normal;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: flip-in;
+	-webkit-animation: .5s ease-in-out normal forwards flip-in;
+	        animation: .5s ease-in-out normal forwards flip-in;
+}
+
+@-webkit-keyframes flip-in {
+	0% {
+		-webkit-transform: rotateX(-90deg);
+		        transform: rotateX(-90deg);
+		opacity: 0;
+	}
+
+	100% {
+		-webkit-transform: rotateX(0deg);
+		        transform: rotateX(0deg);
+		opacity: 1;
+	}
+}
+
+@keyframes flip-in {
+	0% {
+		-webkit-transform: rotateX(-90deg);
+		        transform: rotateX(-90deg);
+		opacity: 0;
+	}
+
+	100% {
+		-webkit-transform: rotateX(0deg);
+		        transform: rotateX(0deg);
+		opacity: 1;
+	}
+}
+
+.show-me {
+	display: block;
+}
+
+.hide-me {
+	display: none;
+}
+
+.get-out {
+	-webkit-transform-origin: center center;
+	    -ms-transform-origin: center center;
+	        transform-origin: center center;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-direction: normal;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: flip-out;
+	-webkit-animation: .5s ease-in-out normal forwards flip-out;
+	        animation: .5s ease-in-out normal forwards flip-out;
+}
+
+@-webkit-keyframes flip-out {
+	0% {
+		-webkit-transform: rotateX(0deg);
+		        transform: rotateX(0deg);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: rotateX(-90deg);
+		        transform: rotateX(-90deg);
+		opacity: 0;
+	}
+}
+
+@keyframes flip-out {
+	0% {
+		-webkit-transform: rotateX(0deg);
+		        transform: rotateX(0deg);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: rotateX(-90deg);
+		        transform: rotateX(-90deg);
+		opacity: 0;
+	}
+}
+
+.fade-in {
+	-webkit-animation-duration: .3s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-direction: normal;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: fade-in;
+	-webkit-animation: .3s ease-in-out normal forwards fade-in;
+	        animation: .3s ease-in-out normal forwards fade-in;
+}
+
+@-webkit-keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.fade-out {
+	-webkit-animation-duration: .3s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-direction: normal;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: fade-in;
+	-webkit-animation: .3s ease-in-out normal forwards fade-out;
+	        animation: .3s ease-in-out normal forwards fade-out;
+}
+
+@-webkit-keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,.85);
+	z-index: 2;
+}
+
+.modal {
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 25%;
+	padding-bottom: 20px;
+	background-color: #f6f395;
+	border-radius: .2rem;
+	text-align: center;
+}
+
+.show-rules {
+	position: fixed;
+	top: -15px;
+	right: 20px;
+}
+
+.fb-share {
+	text-decoration: none;
+	color: #eee;
+	background: #3b5998;
+	background-image: linear-gradient(#4e69a2, #3b5998 50%);
+	display: inline-block;
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	padding-top: 25px;
+	font-family: 'Segoe UI', helvelica, sans-serif;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	border-radius: 2px;
+	box-shadow: 2px 2px 2px #444;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+
+}
+.fb-share:hover {
+	background: #224898;
+}
+.fb-share:active {
+	box-shadow: 1px 1px 1px #444;
+}
