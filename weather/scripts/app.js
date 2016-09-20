@@ -78,7 +78,7 @@ function getWeather() {
 	clearData();
 	var lat = searchResult.latitude || currentPlace.latitude;
 	var lon = searchResult.longitude || currentPlace.longitude
-	wRequestUrl = "https://api.forecast.io/forecast/" + wAppId + "/" + lat + "," + lon;
+	wRequestUrl = "https://api.darksky.net/forecast/" + wAppId + "/" + lat + "," + lon;
 
 	return $.ajax({
 		url: wRequestUrl,

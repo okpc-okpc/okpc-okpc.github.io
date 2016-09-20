@@ -320,6 +320,20 @@ input {
 	cursor: pointer;
 }
 
+.attribution {
+	text-align: right;
+	padding: 0 .5rem .2rem 0;
+}
+
+.darksky {
+	color: #4d4fa2;
+	font-size: 0.8rem;
+	text-decoration: none;
+}
+
+.darksky:hover {
+	text-decoration: underline;
+}
 
 
 @media (max-width: 650px) {
